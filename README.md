@@ -1,5 +1,5 @@
 # real-uploader
-<a href="http://www.realuploader.com/"><img alt="Real Uploader logo" src="http://www.albanx.com/ajaxuploader/images/logo.png"></a>
+<a href="http://www.realuploader.com/"><img alt="Real Uploader logo" src="http://localhost/real-ajax-uploader-4/web/images/logo.png"></a>
 ==================
 #### Real Uploader 4.0 - The HTML5 Ajax Uploader
 
