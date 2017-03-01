@@ -1,0 +1,528 @@
+/*********Container style************************/
+	.ax-button span
+	{
+		display:none;
+		width:0;
+		height:0;
+	}
+
+	.ax-main-container{
+	   	font-size: 16px;
+	    text-align: center;
+	}
+
+	.ax-main-title
+	{
+		font-size: 20px;
+		text-align: center;
+		color: #AAAAAA;
+	}
+/****************************************************************************************/
+
+/*****************Button base style***********************************************/
+	.ax-button
+	{
+		width:50px;
+		height:50px;
+		overflow: hidden;
+		display: inline-block;
+		position:relative;
+		cursor:pointer;
+		margin-left:5px;
+	}
+/****************************************************************************************/
+
+
+/***************************Browse********************************************/
+	.ax-browse-c
+	{
+		background: url(icons.png) no-repeat -332px -73px;
+	}
+	.ax-browse-c:hover
+	{
+		background: url(icons.png) no-repeat -332px -22px;
+	}
+/****************************************************************************************/
+
+
+/***************************Upload all***************************************/
+	.ax-upload-all
+	{
+		background: url(icons.png) no-repeat -332px -361px;
+	}
+
+	.ax-upload-all:hover
+	{
+		background: url(icons.png) no-repeat -332px -289px;
+	}
+/****************************************************************************************/
+
+
+/***************************Clear all****************************************/
+	.ax-clear
+	{
+		background: url(icons.png) no-repeat -332px -217px;
+	}
+
+	.ax-clear:hover
+	{
+		background: url(icons.png) no-repeat -332px -145px;
+	}
+/****************************************************************************************/
+
+
+/*****************************Single file buttons********************************************/
+	.ax-remove, .ax-upload, .ax-abort, .ax-info, .ax-delete
+	{
+		margin-top:4px;
+		width:20px;
+		height:20px;
+		margin-left:10px;
+		cursor:pointer;
+		display: inline-block;
+	}
+	.ax-remove{
+		background: url(icons.png) no-repeat -332px -196px;
+	}
+	.ax-remove:hover
+	{
+		background: url(icons.png) no-repeat -332px -124px;
+	}
+
+	.ax-upload{
+		background: url(icons.png) no-repeat -332px -340px;
+	}
+	.ax-upload:hover
+	{
+		background: url(icons.png) no-repeat -332px -268px;
+	}
+
+	.ax-info{
+		background: url(icons.png) no-repeat -396px -67px;
+	}
+	.ax-info:hover
+	{
+		background: url(icons.png) no-repeat -395px -99px;
+	}
+
+	.ax-delete{
+		background: url(icons.png) no-repeat -396px -1px;
+	}
+	.ax-delete:hover
+	{
+		background: url(icons.png) no-repeat -395px -29px ;
+	}
+
+
+	.ax-abort{
+		background: url(icons.png) no-repeat  -332px -1px;
+	}
+	.ax-upload .ax-abort
+	{
+		background: url(icons.png) no-repeat  -332px -1px;
+	}
+	.ax-abort:hover
+	{
+		background: url(icons.png) no-repeat  -332px -1px;
+	}
+/****************************************************************************************/
+
+.ax-disabled
+{
+	opacity: 0.5;
+	filter:alpha(opacity=50);
+	cursor:auto;
+}
+
+/************************List files styles******************************/
+	.ax-file-list
+	{
+		overflow:hidden;
+	    list-style: none outside none;
+	    padding:0;
+		margin:0 auto;
+	}
+
+	.ax-file-list .ax-file-wrapper:hover
+	{
+		background-color: #141414;
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D1D1D1', endColorstr='#242020',GradientType=0 ); /* IE6-9 */
+		background-image: linear-gradient(bottom, #D1D1D1 30%, #242020 100%);
+		background-image: -o-linear-gradient(bottom, #D1D1D1 30%, #242020 100%);
+		background-image: -moz-linear-gradient(bottom, #D1D1D1 30%, #242020 100%);
+		background-image: -webkit-linear-gradient(bottom, #D1D1D1 30%, #242020 100%);
+		background-image: -ms-linear-gradient(bottom, #D1D1D1 30%, #242020 100%);
+
+		background-image: -webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0.30, #D1D1D1),
+			color-stop(1, #242020)
+		);
+	}
+
+	.ax-file-list .ax-file-wrapper
+	{
+		background-color: #141414;
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D1D1D1', endColorstr='#242020',GradientType=0 ); /* IE6-9 */
+	  	-moz-transition: box-shadow 0.6s ease-in-out 0s;
+		background-image: linear-gradient(bottom, #242020 15%, #D1D1D1 100%);
+		background-image: -o-linear-gradient(bottom, #242020 15%, #D1D1D1 100%);
+		background-image: -moz-linear-gradient(bottom, #242020 15%, #D1D1D1 100%);
+		background-image: -webkit-linear-gradient(bottom, #242020 15%, #D1D1D1 100%);
+		background-image: -ms-linear-gradient(bottom, #242020 15%, #D1D1D1 100%);
+
+		background-image: -webkit-gradient(
+			linear,
+			left bottom,
+			left top,
+			color-stop(0.15, #242020),
+			color-stop(1, #D1D1D1)
+		);
+
+		border: 1px solid #000000;
+		-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) , 0 2px 5px rgba(0, 0, 0, 0.9);
+		-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) , 0 2px 5px rgba(0, 0, 0, 0.9);
+		-ms-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) , 0 2px 5px rgba(0, 0, 0, 0.9);
+	    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) , 0 2px 5px rgba(0, 0, 0, 0.9);
+	    float: left;
+	    text-align:center;
+	    border-radius: 15px;
+	    margin: 0 10px 10px 0;
+	    padding: 10px;
+	    position: relative;
+	    text-align:center;
+
+	    width: 150px;
+	    height: 158px;
+	}
+/************************************************************************/
+
+
+/********************************* FILE DETAILS STYLE*****************************/
+
+.ax-prev-container
+{
+	height:80px;
+    width: 80px;
+    display: inline-block;
+    background: url(icons.png) no-repeat -82px -82px;
+}
+
+.ax-preview
+{
+	max-height:80px;
+	max-width:80px;
+}
+
+
+.ax-file-name
+{
+ 	color: #FFFFFF;
+    font: 12px 'PT Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    height: 14px;
+    margin: 0;
+    overflow: hidden;
+    width: 100%;
+	text-overflow: ellipsis;
+}
+.ax-file-name input
+{
+	width:80%;
+}
+
+.ax-file-size
+{
+	color: #999999;
+    font: 14px 'PT Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    height: 14px;
+    overflow: hidden;
+    width: 100%;
+    margin:0;
+	padding: 0px;
+}
+
+.ax-progress-data{
+	float:left;
+	position:relative;
+    text-align:center;
+	width: 100%;
+}
+
+.ax-progress-stat {
+    color: #FFFFFF;
+    float: left;
+    font-size: 10px;
+    width: 100%;
+}
+
+.ax-progress
+{
+    background-color: white;
+    border-radius: 2px;
+    margin-top: 4px;
+    padding: 0;
+    float:left;
+    height:14px;
+    width: 100%;
+    position:relative;
+    text-align:center;
+}
+
+.ax-progress-bar
+{
+    height: 14px;
+	border-radius: 2px;
+	position:absolute;
+	top:0;
+	left:0;
+	width: 0%;
+	background-image: url(loader.gif);
+}
+
+.ax-progress-info
+{
+	font: 12px 'PT Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    height: 13px;
+    position:absolute;
+    width: 100%;
+    top:0;
+	left:0;
+}
+
+
+.ax-toolbar
+{
+	width:100%;
+	overflow:hidden;
+}
+
+.ax-browse
+{
+	opacity: 0;
+	filter:alpha(opacity=0);
+	font-size:50px;
+	cursor:pointer;
+	height:50px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+
+.ax-details
+{
+	float:left;
+	width:100%;
+}
+
+/************************************************************************/
+
+
+/*************************************Light Box CSS***************************************/
+#ax-box
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff;
+	z-index: 1001;
+	display: none;
+	border:2px solid #000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+  -webkit-box-shadow: 0px 0px 21px 0px #ffffff; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+     -moz-box-shadow: 0px 0px 21px 0px #ffffff; /* FF3.5 - 3.6 */
+          box-shadow: 0px 0px 21px 0px #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
+
+}
+
+#ax-box-shadow
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	filter: alpha(opacity=75);
+	-moz-opacity: 0.75;
+	-khtml-opacity: 0.75;
+	opacity: 0.75;
+	z-index: 1000;
+	display: none;
+}
+
+#ax-box-close
+{
+	width:32px;
+	height:32px;
+	background:url(close.png) no-repeat 0 0;
+	top:-5px;
+	right:-5px;
+	position:absolute;
+	cursor:pointer;
+}
+
+#ax-box-fn
+{
+    background: none repeat scroll 0 0 black;
+    bottom: 0;
+    color: white;
+    height: 38px;
+    left: 0;
+    opacity: 0.8;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 15;
+}
+
+#ax-box-fn span
+{
+    display: block;
+    font-family: 'Volkhov',Georgia,sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 38px;
+    padding: 0 20px;
+}
+/*****************************************************************************************************/
+
+
+/*************************************File Type Icons*************************************************/
+.ax-filetype-pdf{
+	background: url(icons.png) no-repeat  -162px 0px;
+}
+.ax-filetype-zip,.ax-filetype-rar{
+	background: url(icons.png) no-repeat  -244px -244px;
+}
+.ax-filetype-doc, .ax-filetype-docx{
+	background: url(icons.png) no-repeat  0 -162px;
+}
+.ax-filetype-exe{
+	background: url(icons.png) no-repeat  -80px 0;
+}
+.ax-filetype-xls, .ax-filetype-xlsx{
+	background: url(icons.png) no-repeat  0 -244px;
+}
+.ax-filetype-xml{
+	background: url(icons.png) no-repeat -244px -162px;
+}
+.ax-filetype-mp4{
+	background: url(icons.png) no-repeat -244px -84px;
+}
+.ax-filetype-avi{
+	background: url(icons.png) no-repeat -244px -84px;
+}
+.ax-filetype-pdf{
+	background: url(icons.png) no-repeat -162px 0px;
+}
+.ax-filetype-gif{
+	background: url(icons.png) no-repeat -80px -162px;
+}
+.ax-filetype-png{
+	background: url(icons.png) no-repeat -80px -162px;
+}
+.ax-filetype-bmp{
+	background: url(icons.png) no-repeat 0 -80px;
+}
+.ax-filetype-mp3{
+	background: url(icons.png) no-repeat 0 0;
+}
+.ax-filetype-ppt, .ax-filetype-pptx{
+	background: url(icons.png) no-repeat -162px -162px;
+}
+.ax-filetype-tiff{
+	background: url(icons.png) no-repeat -244px 0;
+}
+.ax-filetype-txt{
+	background: url(icons.png) no-repeat -162px -244px;
+}
+
+/*********************Drop Over Class*******************************************************************/
+.ax-drop{
+	border:2px solid blue;
+	border-radius:4px;
+}
+
+/*******Responsive**********/
+@media (max-width: 767px)
+{
+	.ax-main-container{
+	   	font-size: 12px;
+	}
+	.ax-main-title
+	{
+		font-size: 14px;
+	}
+	.ax-file-name {
+	    font-size: 0.8em;
+	    height:  1.2em;
+	    width: 100%;
+	}
+	.ax-file-size{
+		display:none;
+	}
+	.ax-file-list .ax-file-wrapper{
+		width:100px;
+		height:130px;
+	}
+	.ax-remove, .ax-upload, .ax-abort, .ax-info, .ax-delete {
+	    margin-left: 4px;
+	    margin-top: 4px;
+	}
+	.ax-progress-info{
+		font-size:0.8em;
+	}
+	.ax-progress{
+		height:11px;
+	}
+}
+
+
+
+/*************************************ASK DIV***************************************/
+.ax-ask-div{
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	position:absolute;
+	text-align:center;
+	float:left;
+	color:white;
+	background-color:rgba(0,0,0,0.7);
+	display: table;
+}
+.ax-ask-div .ax-ask-inner{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.ax-ask-div .ax-ask-quest{
+	width:100%;
+}
+
+.ax-ask-div .ax-button{
+    background-color: white;
+    border-radius: 3px 3px 3px 3px;
+    height: 19px;
+    width: 47px;
+}
+.ax-ask-div .ax-button:hover{
+    background-color: green;
+	color:white;
+    border-radius: 3px 3px 3px 3px;
+    height: 19px;
+    width: 47px;
+}
+
+.ax-ask-div .ax-button span{
+	display:inline;
+}
+/***********************************************************************************************/

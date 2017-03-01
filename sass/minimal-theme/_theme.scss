@@ -1,0 +1,280 @@
+.ax-main-container {
+    font-size: 1em;
+    float: left;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-align: center;
+
+    .ax-button {
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        background-repeat: no-repeat;
+        filter: none;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.42857;
+        text-align: center;
+        white-space: nowrap;
+        margin: 0.2em;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .ax-main-title {
+        margin: 0 auto;
+        color: #997F5A;
+        display: block;
+        font-size: 100%;
+        font-style: italic;
+        font-weight: 400;
+        text-shadow: 0 1px 1px #FFFFFF;
+    }
+
+    .ax-main-buttons {
+        margin: 0.4em;
+
+        .ax-icon {
+            background-size: contain;
+            width: 20px;
+            height: 20px;
+            float: left;
+        }
+
+        .ax-browse-c {
+            .ax-icon {
+                display: none;
+            }
+            .ax-text {
+            }
+            .ax-browse {
+                opacity: 0;
+                cursor: pointer;
+                height: 64px;
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
+
+        .ax-upload-all {
+            &:hover {
+            }
+            .ax-icon {
+                display: none;
+            }
+            .ax-text {
+            }
+        }
+
+        .ax-clear {
+            &:hover {
+            }
+            .ax-icon {
+                display: none;
+            }
+            .ax-text {
+            }
+        }
+    }
+
+    .ax-file-list {
+        width: 100%;
+
+        .ax-file-wrapper {
+            position: relative;
+            margin: 6px;
+            //height: 3em;
+            color: #000000;
+            border: 1px solid blue;
+            float: left;
+            .ax-prev-container {
+                border-right: 1px solid blue;
+                float: left;
+                height: 100%;
+                width: 3em;
+                overflow: hidden;
+                z-index: 11;
+                &.ax-no-preview {
+                    background-image: url($file_icon);
+                    background-size: cover;
+                    position: relative;
+                }
+
+
+                .ax-extension {
+                    background-color: #000000;
+                    border-radius: 2px;
+                    bottom: 5px;
+                    color: #fdfefc;
+                    font-size: 12px;
+                    font-weight: bold;
+                    left: 5px;
+                    position: absolute;
+                    width: 71%;
+                }
+
+                .ax-preview {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+            .ax-details {
+                padding-top: 10px;
+                overflow: hidden;
+                z-index: 10;
+                float: left;
+                margin-left: 5px;
+                width: 8em;
+                .ax-file-size, .ax-file-name {
+                    font: 0.8em "Helvetica Neue", Helvetica, Arial, sans-serif;
+                    overflow: hidden;
+                    text-align: center;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    width: 100%;
+                    input {
+                        width: 80%;
+                    }
+                }
+            }
+
+            .ax-progress-data {
+                padding-top: 10px;
+                float: left;
+                width: 100px;
+                font: 0.7em "Helvetica Neue",Helvetica,Arial,sans-serif;
+                overflow: hidden;
+                .ax-progress {
+                    height: 20px;
+                    position: relative;
+                    width: 100%;
+                }
+
+                .ax-progress-stat {
+                    float: left;
+                    width: 100%;
+                }
+                .ax-progress-info {
+                    height: 100%;
+                    left: 0;
+                    line-height: 1.8em;
+                    margin: 0 auto;
+                    overflow: hidden;
+                    position: absolute;
+                    text-align: center;
+                    top: 0;
+                    width: 100%;
+                }
+
+                .ax-progress-bar {
+                    @include bg-gradient(to bottom, #f0a3a3 37%, #f42323 69%);
+                    display: block;
+                    height: 100%;
+                    overflow: hidden;
+                    position: relative;
+                }
+            }
+
+            .ax-toolbar {
+                padding-top: 10px;
+                float: left;
+                color: #0e0063;
+                .ax-button {
+                    margin: 2px;
+                    padding: 2px;
+                    &:hover {
+                        text-decoration: underline;
+                    }
+
+
+                    &.ax-upload {
+                        .ax-icon {
+                            display: none;
+                        }
+                        &:hover {
+                        }
+                    }
+
+                    &.ax-remove {
+
+                        .ax-icon {
+                        }
+                        &:hover {
+                        }
+                    }
+
+                    &.ax-delete {
+                        &:hover {
+                        }
+
+                        .ax-icon {
+                        }
+                    }
+
+                    &.ax-info {
+                        &:hover {
+                        }
+                        .ax-icon {
+                        }
+                    }
+
+                    .ax-icon {
+                        display: none;
+                    }
+                }
+            }
+
+            .ax-edit-fn {
+                border: 1px solid gray;
+                background-color: #fff;
+            }
+        }
+    }
+
+    .ax-disabled {
+        opacity: 0.5;
+        cursor: auto;
+        color: #808080;
+        &.ax-button:hover {
+            text-decoration: none !important;
+            cursor: default !important;
+        }
+    }
+}
+
+.ax-uploader {
+
+    .ax-ask-yes:hover, .ax-ask-no:hover {
+        color: black;
+    }
+
+    .ax-ask-div {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        float: left;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: table;
+    }
+
+    .ax-ask-div .ax-ask-inner {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .ax-ask-div .ax-ask-quest {
+        width: 100%;
+    }
+
+    .ax-ask-div .ax-reply-no, .ax-ask-div .ax-reply-yes {
+        display: inline-flex;
+        width: 25%;
+    }
+}

@@ -1,0 +1,547 @@
+/* line 43, ../sass/_base.scss */
+.ax-main-container * {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+/* line 48, ../sass/_base.scss */
+.ax-main-container:before, .ax-main-container:after {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+/* line 53, ../sass/_base.scss */
+.ax-main-container .ax-disabled {
+  opacity: 0.5;
+  cursor: auto;
+  color: #808080;
+}
+/* line 57, ../sass/_base.scss */
+.ax-main-container .ax-disabled.ax-button:hover {
+  text-decoration: none !important;
+  cursor: default !important;
+}
+
+/* line 64, ../sass/_base.scss */
+.ax-uploader {
+  position: relative;
+}
+/* line 66, ../sass/_base.scss */
+.ax-uploader .ax-mask {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  text-align: center;
+  vertical-align: middle;
+  border: 4px dashed grey;
+}
+/* line 77, ../sass/_base.scss */
+.ax-uploader .ax-mask .ax-mask-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="288" height="226" viewBox="0 0 288 226"><path fill="transparent" d="M0 0L288 0 288 226 0 226 0 0Z"/><path fill="rgb(0,150,202)" d="M85.45 19.44C104.38 7.48 126.68 1.2 149 0.64 165.13 0.1 181.55 2.96 196.24 9.77 220.04 21.03 238.45 43.47 243.68 69.42 250.48 67.38 257.87 67.27 264.64 69.49 274.12 72.63 281.98 80.37 285.17 89.85 288.19 99.39 288.44 110.09 284.37 119.37 281.8 125.17 276.75 129.66 270.88 131.94 263.68 134.93 255.8 135.64 248.09 135.84 214.99 136.01 181.89 135.69 148.8 136 126.17 132.78 103.63 128.97 81.01 125.68 79 129.17 76.85 132.59 74.75 136.02 73.06 135.89 71.26 135.69 69.71 136.56 56.68 142.94 40.68 142.86 27.73 136.3 16.52 130.52 7.4 120.44 3.5 108.37 -0.94 94.71-0.49 79.16 6.36 66.36 12.33 55.3 22.56 46.96 33.91 41.84 44.16 37.24 55.6 36.03 66.74 36.69 71.55 29.59 78.26 24.01 85.45 19.44Z"/><path fill="rgb(255,68,0)" d="M88.42 86.66C112.88 77.26 136.11 63.98 155.36 46.07 155.99 52.07 159.58 57.15 163.25 61.72 172.14 72.75 184.84 79.91 197.9 84.9 199.99 85.67 202.13 86.36 204.04 87.53 192.98 87.16 181.91 87.49 170.85 87.39 165.08 101.88 159.16 116.32 153.63 130.91 130.33 128.3 107.14 124.62 83.87 121.69 90.3 110.1 97.71 99.06 104.37 87.59 98.57 87.2 92.75 87.42 86.95 87.49 87.32 87.28 88.05 86.87 88.42 86.66Z"/><path fill="rgb(255,68,0)" d="M74.75 136.02C76.85 132.59 79 129.17 81.01 125.68 103.63 128.97 126.17 132.78 148.8 136 149.4 136.15 150.62 136.45 151.22 136.6 147.9 145.47 144.2 154.19 140.93 163.07 139.65 162.92 138.37 162.74 137.13 162.4 114.48 156.63 91.75 151.19 69.12 145.36 71.01 142.25 72.88 139.14 74.75 136.02Z"/><path fill="rgb(255,68,0)" d="M57.99 163.61C60.2 159.94 62.41 156.26 64.92 152.79 88.89 159.7 112.97 166.26 136.91 173.28 134.82 178.2 132.93 183.21 130.91 188.17 106.53 180.21 82.33 171.69 57.99 163.61Z"/><path fill="rgb(255,68,0)" d="M53.24 171.05C53.81 171.16 54.97 171.37 55.55 171.48 79.33 180.45 103.04 189.6 126.85 198.48 125.87 201.31 124.71 204.07 123.65 206.87 99.11 197.1 74.87 186.6 50.31 176.91 50.92 174.79 52.24 172.99 53.24 171.05Z"/><path fill="rgb(255,68,0)" d="M44.21 186.32C68.82 197.82 93.44 209.33 117.97 221.01 117.21 222.55 116.92 226.23 114.41 224.55 92.21 213.78 70.01 202.98 47.81 192.2 45.92 191.3 43.96 190.51 42.28 189.24 42.93 188.26 43.57 187.29 44.21 186.32Z"/></svg>');
+  width: 50%;
+  margin: 0 auto;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+@keyframes ax-progress {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 30px 30px;
+  }
+}
+/* line 99, ../sass/_base.scss */
+.ax-flip-x {
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+/* line 106, ../sass/_base.scss */
+.ax-flip-y {
+  -moz-transform: scaleY(-1);
+  -o-transform: scaleY(-1);
+  -webkit-transform: scaleY(-1);
+  transform: scaleY(-1);
+}
+
+/* line 113, ../sass/_base.scss */
+.ax-rotate-180 {
+  -moz-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  -moz-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+/* line 125, ../sass/_base.scss */
+.ax-rotate-90 {
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -moz-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+/* line 137, ../sass/_base.scss */
+.ax-flip-y-90 {
+  -moz-transform: rotate(90deg) scaleY(-1);
+  -o-transform: rotate(90deg) scaleY(-1);
+  -webkit-transform: rotate(90deg) scaleY(-1);
+  transform: rotate(90deg) scaleY(-1);
+  -moz-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+/* line 149, ../sass/_base.scss */
+.ax-flip-x-90 {
+  -moz-transform: rotate(90deg) scaleX(-1);
+  -o-transform: rotate(90deg) scaleX(-1);
+  -webkit-transform: rotate(90deg) scaleX(-1);
+  transform: rotate(90deg) scaleX(-1);
+}
+
+/* line 156, ../sass/_base.scss */
+.ax-rotate-inv-90 {
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+  -moz-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+
+/* line 1, ../sass/_lightbox.scss */
+.ax-body-clean {
+  padding: 0;
+  margin: 0;
+}
+
+/* Styles the lightbox, removes it from sight and adds the fade-in transition */
+/* line 7, ../sass/_lightbox.scss */
+.ax-lightbox-target {
+  position: fixed;
+  top: -100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  -webkit-transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -o-transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+  overflow: hidden;
+  z-index: 10000;
+  /* Styles the close link, adds the slide down transition */
+}
+/* line 16, ../sass/_lightbox.scss */
+.ax-lightbox-target.show {
+  opacity: 1;
+  top: 0;
+  bottom: 0;
+}
+/* line 20, ../sass/_lightbox.scss */
+.ax-lightbox-target.show img {
+  animation: ax-animate-box 0.5s ease-in-out;
+}
+/* line 23, ../sass/_lightbox.scss */
+.ax-lightbox-target.show .ax-lightbox-close {
+  top: 0px;
+}
+/* line 27, ../sass/_lightbox.scss */
+.ax-lightbox-target .ax-image-box {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  max-height: 90%;
+  max-width: 90%;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+}
+/* line 40, ../sass/_lightbox.scss */
+.ax-lightbox-target img {
+  box-sizing: border-box;
+  max-height: 100%;
+  max-width: 100%;
+  border: 3px solid white;
+  box-shadow: 0px 0px 17px rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+}
+/* line 49, ../sass/_lightbox.scss */
+.ax-lightbox-target .ax-lightbox-close {
+  display: block;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  background: white;
+  color: black;
+  text-decoration: none;
+  position: absolute;
+  cursor: pointer;
+  top: -80px;
+  right: 0;
+  -webkit-transition: 0.3s ease-in-out;
+  -moz-transition: 0.3s ease-in-out;
+  -o-transition: 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
+  /* Provides part of the "X" to eliminate an image from the close link */
+  /* Provides part of the "X" to eliminate an image from the close link */
+}
+/* line 63, ../sass/_lightbox.scss */
+.ax-lightbox-target .ax-lightbox-close:before {
+  content: "";
+  display: block;
+  height: 30px;
+  width: 1px;
+  background: black;
+  position: absolute;
+  left: 26px;
+  top: 10px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/* line 78, ../sass/_lightbox.scss */
+.ax-lightbox-target .ax-lightbox-close:after {
+  content: "";
+  display: block;
+  height: 30px;
+  width: 1px;
+  background: black;
+  position: absolute;
+  left: 26px;
+  top: 10px;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+/* line 94, ../sass/_lightbox.scss */
+.ax-lightbox-target .ax-info-box {
+  background: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  color: white;
+  height: 28px;
+  line-height: 28px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  z-index: 15;
+  font-family: 'Volkhov',Georgia,sans-serif;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+}
+/* line 110, ../sass/_lightbox.scss */
+.ax-lightbox-target .ax-info-box .ax-name-box {
+  display: block;
+  margin-left: 15px;
+  float: left;
+  width: 70%;
+  border-right: 1px solid white;
+  text-overflow: ellipsis;
+}
+/* line 118, ../sass/_lightbox.scss */
+.ax-lightbox-target .ax-info-box .ax-size-box {
+  display: block;
+  margin-left: 15px;
+  float: left;
+  width: 25%;
+  text-overflow: ellipsis;
+}
+
+@keyframes ax-animate-box {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* line 1, ../sass/minimal-theme/_theme.scss */
+.ax-main-container {
+  font-size: 1em;
+  float: left;
+  font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  text-align: center;
+}
+/* line 7, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-button {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  filter: none;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0.2em;
+}
+/* line 20, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-button:hover {
+  text-decoration: underline;
+}
+/* line 25, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-main-title {
+  margin: 0 auto;
+  color: #997F5A;
+  display: block;
+  font-size: 100%;
+  font-style: italic;
+  font-weight: 400;
+  text-shadow: 0 1px 1px #FFFFFF;
+}
+/* line 35, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-main-buttons {
+  margin: 0.4em;
+}
+/* line 38, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-main-buttons .ax-icon {
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  float: left;
+}
+/* line 46, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-main-buttons .ax-browse-c .ax-icon {
+  display: none;
+}
+/* line 51, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-main-buttons .ax-browse-c .ax-browse {
+  opacity: 0;
+  cursor: pointer;
+  height: 64px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+/* line 64, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-main-buttons .ax-upload-all .ax-icon {
+  display: none;
+}
+/* line 74, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-main-buttons .ax-clear .ax-icon {
+  display: none;
+}
+/* line 82, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list {
+  width: 100%;
+}
+/* line 85, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper {
+  position: relative;
+  margin: 6px;
+  color: #000000;
+  border: 1px solid blue;
+  float: left;
+}
+/* line 92, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-prev-container {
+  border-right: 1px solid blue;
+  float: left;
+  height: 100%;
+  width: 3em;
+  overflow: hidden;
+  z-index: 11;
+}
+/* line 99, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-prev-container.ax-no-preview {
+  background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" width="470.6" height="470.6" viewBox="0 0 470.6 470.6" xml:space="preserve"><path d="M327.1 0H90.2C74.3 0 61.4 13 61.4 28.9v412.9c0 15.9 13 28.9 28.9 28.9H380.4c15.9 0 28.9-12.9 28.9-28.9V89.2L327.1 0zM333.9 43.2l36 39.1h-36V43.2zM385 441.7c0 2.5-2.1 4.6-4.6 4.6H90.2c-2.5 0-4.6-2.1-4.6-4.6V28.9c0-2.5 2.1-4.6 4.6-4.6h219.4v70.2c0 6.7 5.4 12.1 12.1 12.1h63.2V441.7zM128.4 128.9H334.2c5 0 9.1 4.1 9.1 9.1 0 5-4.1 9.1-9.1 9.1H128.4c-5 0-9.1-4.1-9.1-9.1C119.3 133 123.4 128.9 128.4 128.9zM343.2 199c0 5-4.1 9.1-9.1 9.1H128.4c-5 0-9.1-4.1-9.1-9.1s4.1-9.1 9.1-9.1H334.2C339.2 189.9 343.2 194 343.2 199zM343.2 258c0 5-4.1 9.1-9.1 9.1H128.4c-5 0-9.1-4.1-9.1-9.1s4.1-9.1 9.1-9.1H334.2C339.2 248.9 343.2 253 343.2 258zM343.2 318c0 5-4.1 9.1-9.1 9.1H128.4c-5 0-9.1-4.1-9.1-9.1s4.1-9.1 9.1-9.1H334.2C339.2 308.9 343.2 313 343.2 318z"/></svg>');
+  background-size: cover;
+  position: relative;
+}
+/* line 106, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-prev-container .ax-extension {
+  background-color: #000000;
+  border-radius: 2px;
+  bottom: 5px;
+  color: #fdfefc;
+  font-size: 12px;
+  font-weight: bold;
+  left: 5px;
+  position: absolute;
+  width: 71%;
+}
+/* line 118, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-prev-container .ax-preview {
+  height: 100%;
+  width: 100%;
+}
+/* line 124, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-details {
+  padding-top: 10px;
+  overflow: hidden;
+  z-index: 10;
+  float: left;
+  margin-left: 5px;
+  width: 8em;
+}
+/* line 131, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-details .ax-file-size, .ax-main-container .ax-file-list .ax-file-wrapper .ax-details .ax-file-name {
+  font: 0.8em "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
+/* line 138, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-details .ax-file-size input, .ax-main-container .ax-file-list .ax-file-wrapper .ax-details .ax-file-name input {
+  width: 80%;
+}
+/* line 144, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-progress-data {
+  padding-top: 10px;
+  float: left;
+  width: 100px;
+  font: 0.7em "Helvetica Neue",Helvetica,Arial,sans-serif;
+  overflow: hidden;
+}
+/* line 150, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-progress-data .ax-progress {
+  height: 20px;
+  position: relative;
+  width: 100%;
+}
+/* line 156, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-progress-data .ax-progress-stat {
+  float: left;
+  width: 100%;
+}
+/* line 160, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-progress-data .ax-progress-info {
+  height: 100%;
+  left: 0;
+  line-height: 1.8em;
+  margin: 0 auto;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+}
+/* line 172, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-progress-data .ax-progress-bar {
+  background-color: #f42323 69%;
+  background: -webkit-linear-gradient(to bottom, #f0a3a3 37%, #f42323 69%);
+  /* Chrome 10+, Saf5.1+ */
+  background: -moz-linear-gradient(to bottom, #f0a3a3 37%, #f42323 69%);
+  /* FF3.6+ */
+  background: -ms-linear-gradient(to bottom, #f0a3a3 37%, #f42323 69%);
+  /* IE10 */
+  background: -o-linear-gradient(to bottom, #f0a3a3 37%, #f42323 69%);
+  /* Opera 11.10+ */
+  background: linear-gradient(to bottom, #f0a3a3 37%, #f42323 69%);
+  /* W3C */
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+/* line 181, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-toolbar {
+  padding-top: 10px;
+  float: left;
+  color: #0e0063;
+}
+/* line 185, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-toolbar .ax-button {
+  margin: 2px;
+  padding: 2px;
+}
+/* line 188, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-toolbar .ax-button:hover {
+  text-decoration: underline;
+}
+/* line 194, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-toolbar .ax-button.ax-upload .ax-icon {
+  display: none;
+}
+/* line 224, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-toolbar .ax-button .ax-icon {
+  display: none;
+}
+/* line 230, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-file-list .ax-file-wrapper .ax-edit-fn {
+  border: 1px solid gray;
+  background-color: #fff;
+}
+/* line 237, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-disabled {
+  opacity: 0.5;
+  cursor: auto;
+  color: #808080;
+}
+/* line 241, ../sass/minimal-theme/_theme.scss */
+.ax-main-container .ax-disabled.ax-button:hover {
+  text-decoration: none !important;
+  cursor: default !important;
+}
+
+/* line 250, ../sass/minimal-theme/_theme.scss */
+.ax-uploader .ax-ask-yes:hover, .ax-uploader .ax-ask-no:hover {
+  color: black;
+}
+/* line 254, ../sass/minimal-theme/_theme.scss */
+.ax-uploader .ax-ask-div {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  text-align: center;
+  float: left;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: table;
+}
+/* line 267, ../sass/minimal-theme/_theme.scss */
+.ax-uploader .ax-ask-div .ax-ask-inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+/* line 272, ../sass/minimal-theme/_theme.scss */
+.ax-uploader .ax-ask-div .ax-ask-quest {
+  width: 100%;
+}
+/* line 276, ../sass/minimal-theme/_theme.scss */
+.ax-uploader .ax-ask-div .ax-reply-no, .ax-uploader .ax-ask-div .ax-reply-yes {
+  display: inline-flex;
+  width: 25%;
+}

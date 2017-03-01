@@ -1,0 +1,349 @@
+/*********Container style************************/
+.ax-main-container{
+   	font-size: 16px;
+    text-align: center;
+    width: 420px;
+}
+
+.ax-main-title{
+	width:80%;
+	margin:0 auto;
+	color: #997F5A;
+    display: block;
+    font-size: 100%;
+    font-style: italic;
+    font-weight: 400;
+    text-shadow: 0 1px 1px #FFFFFF;
+}
+
+.ax-preview{
+	max-height:100%;
+}
+/****************************************************/
+
+/*****************Button base style***********************************************/
+.ax-browse-c
+{
+	overflow: hidden;
+	position:relative;
+}
+
+.ax-browse-c, .ax-upload-all, .ax-clear
+{
+	margin-left:5px;
+}
+
+.ax-remove, .ax-upload, .ax-abort, .ax-delete, .ax-info
+{
+	margin-left:5px;
+}
+
+.ax-disabled
+{
+	opacity: 0.5;
+	filter:alpha(opacity=50);
+	cursor:auto;
+}
+/************************************************************************/
+
+/*******************FILE LIST*************************************/
+.ax-file-list
+{
+	overflow:hidden;
+    list-style: none outside none;
+    padding:0;
+	margin:0 auto;
+	width:100%;
+}
+.ax-file-list li
+{
+	    text-align:center;
+	    margin: 0 2px 2px 0;
+	    padding: 2px;
+}
+
+.ax-file-list li>a{
+	position:relative;
+}
+.ax-file-name
+{
+    overflow: hidden;
+}
+
+.ax-file-name input
+{
+	width:80%;
+}
+
+.ax-file-size
+{
+    overflow: hidden;
+}
+
+
+.ax-progress-data{
+	float:left;
+	position:relative;
+    text-align:center;
+	width: 39%;
+}
+
+.ax-progress-stat {
+    color: #FFFFFF;
+    float: left;
+    font-size: 11px;
+    left: -115px;
+    position: absolute;
+    top: 7px;
+    width: 100%;
+}
+
+.ax-progress
+{
+ 	float: right;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    position: relative;
+    text-align: center;
+    width:100%;
+}
+
+.ax-progress-bar
+{
+    height: 14px;
+	border-radius: 2px;
+	position:absolute;
+	top:0;
+	left:0;
+	width: 0%;
+}
+
+.ax-progress-info
+{
+	font: 12px 'PT Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    height: 13px;
+    position:absolute;
+    width: 100%;
+    top:0;
+	left:0;
+}
+
+
+.ax-toolbar
+{
+	overflow:hidden;
+	float:left;
+}
+
+.ax-browse
+{
+	opacity: 0;
+	filter:alpha(opacity=0);
+	font-size:50px;
+	cursor:pointer;
+	height:50px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+.ax-prev-container
+{
+	height:60px;
+    width: 60px;
+    display: inline-block;
+    background: url(icons.png) no-repeat;
+}
+
+.ax-details
+{
+	float: left;
+    width: 77%;
+}
+
+/*************************************Light Box CSS***************************************/
+#ax-box
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff;
+	z-index: 1001;
+	display: none;
+	border:2px solid #000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+  -webkit-box-shadow: 0px 0px 21px 0px #ffffff; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+     -moz-box-shadow: 0px 0px 21px 0px #ffffff; /* FF3.5 - 3.6 */
+          box-shadow: 0px 0px 21px 0px #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
+
+}
+
+#ax-box-shadow
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	filter: alpha(opacity=75);
+	-moz-opacity: 0.75;
+	-khtml-opacity: 0.75;
+	opacity: 0.75;
+	z-index: 1000;
+	display: none;
+}
+
+#ax-box-close
+{
+	top:0px;
+	right:0px;
+	position:absolute;
+	cursor:pointer;
+	border-radius:15px;
+}
+
+#ax-box-fn
+{
+    background: none repeat scroll 0 0 black;
+    bottom: 0;
+    color: white;
+    height: 38px;
+    left: 0;
+    opacity: 0.8;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 15;
+}
+
+#ax-box-fn span
+{
+    display: block;
+    font-family: 'Volkhov',Georgia,sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 38px;
+    padding: 0 20px;
+}
+/*****************************************************************************************************/
+
+/*************************************File Type Icons*************************************************/
+.ax-filetype-pdf{
+	background: url(icons.png) no-repeat -243px 0;
+}
+
+.ax-filetype-zip,.ax-filetype-rar, .ax-filetype-7zip, .ax-filetype-jar{
+	background: url(icons.png) no-repeat -548px 0;
+}
+.ax-filetype-doc, .ax-filetype-docx{
+	background: url(icons.png) no-repeat -122px 0;
+}
+.ax-filetype-exe{
+	background: url(icons.png) no-repeat -183px 0;
+}
+.ax-filetype-xls, .ax-filetype-xlsx{
+	background: url(icons.png) no-repeat 0 0;
+}
+
+.ax-filetype-avi, .ax-filetype-mp4, .ax-filetype-mpeg, .ax-filetype-wmv{
+	background: url(icons.png) no-repeat -487px 0;
+}
+
+.ax-filetype-png, .ax-filetype-gif, .ax-filetype-bmp, .ax-filetype-tiff, .ax-filetype-jpg{
+	background: url(icons.png) no-repeat -365px 0;
+}
+
+.ax-filetype-mp3, .ax-filetype-wav, .ax-filetype-wma{
+	background: url(icons.png) no-repeat -304px 0;
+}
+.ax-filetype-ppt, .ax-filetype-pptx{
+	background: url(icons.png) no-repeat -61px 0;
+}
+
+.ax-filetype-txt, .ax-filetype-ini, .ax-filetype-xml{
+	background: url(icons.png) no-repeat -426px 0;
+}
+
+/*********************Drop Over Class*******************************************************************/
+.ax-drop{
+	border:2px solid blue;
+	border-radius:4px;
+}
+
+
+/*************************************ASK DIV***************************************/
+.ax-ask-div {
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	position:absolute;
+	text-align:center;
+	float:left;
+	color:white;
+	background-color:rgba(0,0,0,0.7);
+	display: block;
+}
+.ax-ask-div .ax-ask-inner{
+  	display: inline;
+    margin: 0 auto;
+    vertical-align: middle;
+}
+
+.ax-ask-div .ax-ask-quest{
+	width:100%;
+}
+
+.ax-ask-div .ax-reply-no, .ax-ask-div .ax-reply-yes{
+
+}
+/***********************************************************************************************/
+
+
+/*******Responsive**********/
+@media (max-width: 767px)
+{
+	.ax-main-container{
+	   	font-size: 12px;
+	    text-align: center;
+	    width: 200px;
+	}
+	.ax-file-list
+	{
+		width: 100%;
+
+	}
+
+	.ax-file-list li
+	{
+	    width: 100%;
+		height:auto;
+	}
+	.ax-text{
+		display:none;
+	}
+	.ax-progress, .ax-details, .ax-toolbar{
+		margin-left:5px;
+
+	}
+	.ax-progress{
+		width:56%;
+				height: 13px;
+		margin-bottom:2px;
+	}
+	.ax-browse-c, .ax-upload-all, .ax-clear{
+		width:17%;
+	}
+
+	.ax-details {
+	    float: left;
+	    padding-left: 0;
+	    padding-right: 0;
+	    width: 56%;
+	}
+}

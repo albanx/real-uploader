@@ -1,0 +1,442 @@
+/*********Container style************************/
+.ax-main-container{
+   	font-size: 16px;
+    text-align: center;
+    width: 360px;
+}
+
+.ax-main-title{
+	width:80%;
+	margin:0 auto;
+	color: #997F5A;
+    display: block;
+    font-size: 100%;
+    font-style: italic;
+    font-weight: 400;
+    text-shadow: 0 1px 1px #FFFFFF;
+}
+/***********************************************/
+
+
+.ax-button span
+{
+	display:none;
+	width:0;
+	height:0;
+}
+
+/****************MAIN BUTTONSs*******************************/
+.ax-browse-c
+{
+	width:34px;
+	height:34px;
+	overflow: hidden;
+	display: inline-block;
+	position:relative;
+	background: url(images.png) no-repeat 0px -77px;
+	cursor:pointer;
+}
+.ax-upload-all
+{
+	width:34px;
+	height:34px;
+	margin-left:5px;
+	display: inline-block;
+	background: url(images.png) no-repeat 0px -222px;
+	cursor:pointer;
+}
+.ax-clear
+{
+	width:34px;
+	height:34px;
+	margin-left:5px;
+	display: inline-block;
+	background: url(images.png) no-repeat 0px -161px;
+	cursor:pointer;
+}
+.ax-browse-c:hover,.ax-upload-all:hover,.ax-clear:hover
+{
+	opacity:0.5;
+	filter:alpha(opacity=50);
+}
+/*****************************************************************/
+
+
+.ax-remove, .ax-upload, .ax-abort, .ax-info, .ax-delete
+{
+	margin-top:4px;
+	width:20px;
+	height:20px;
+	margin-left:3px;
+	cursor:pointer;
+	display: inline-block;
+}
+.ax-remove{
+	background: url(images.png) no-repeat 0px -137px;
+}
+.ax-upload{
+	background: url(images.png) no-repeat 0px -198px;
+}
+.ax-abort{
+	background: url(images.png) no-repeat 0px -52px;
+}
+
+.ax-info{
+	background: url(images.png) no-repeat 0px 0px;
+}
+.ax-delete{
+	background: url(images.png) no-repeat 0px -114px;
+}
+
+
+.ax-disabled
+{
+	opacity: 0.5;
+	filter:alpha(opacity=50);
+	cursor:auto;
+}
+
+.ax-remove:hover, .ax-upload:hover, .ax-abort:hover, .ax-info:hover, .ax-delete:hover
+{
+	-moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 0 3px rgba(0,0,0,0.9),0 0 6px rgba(255,255,255,0.7);
+	-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 0 3px rgba(0,0,0,0.9),0 0 6px rgba(255,255,255,0.7);
+	box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 0 3px rgba(0,0,0,0.9),0 0 6px rgba(255,255,255,0.7);
+}
+
+
+/************************List files styles********************************************/
+.ax-file-list
+{
+	overflow:hidden;
+    list-style: none outside none;
+    padding:5px;
+	margin:0;
+	border-radius:5px;
+	width:350px;
+}
+
+.ax-file-list li:hover
+{
+	-moz-box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 0 3px rgba(0,0,0,0.9),0 0 6px rgba(255,255,255,0.7);
+	-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 0 3px rgba(0,0,0,0.9),0 0 6px rgba(255,255,255,0.7);
+	box-shadow:inset 0 1px 0 rgba(255,255,255,0.3),0 0 3px rgba(0,0,0,0.9),0 0 6px rgba(255,255,255,0.7);
+}
+
+.ax-file-list li
+{
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#D1D1D1', endColorstr='#F2EDED',GradientType=0 ); /* IE6-9 */
+  	-moz-transition: box-shadow 0.6s ease-in-out 0s;
+    background-color: #141414;
+
+	background-image: linear-gradient(bottom, #F3F3F3 15%, #fff 100%);
+	background-image: -o-linear-gradient(bottom, #F3F3F3 15%, #D1D1D1 100%);
+	background-image: -moz-linear-gradient(bottom, #F3F3F3 15%, #D1D1D1 100%);
+	background-image: -webkit-linear-gradient(bottom, #F3F3F3 15%, #D1D1D1 100%);
+	background-image: -ms-linear-gradient(bottom, #F3F3F3 15%, #D1D1D1 100%);
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.15, #F3F3F3),
+		color-stop(1, #D1D1D1)
+	);
+
+	border: 1px solid #000000;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) , 0 2px 5px rgba(0, 0, 0, 0.9);
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) , 0 2px 5px rgba(0, 0, 0, 0.9);
+	-ms-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) , 0 2px 5px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) , 0 2px 5px rgba(0, 0, 0, 0.9);
+    padding: 3px;
+    margin-bottom:10px;
+    position: relative;
+    text-align:center;
+    height: 40px;
+}
+/*****************************************************************************/
+
+
+.ax-file-name
+{
+	color: #000;
+    font-family: arial,verdana;
+    overflow: hidden;
+    width: 100%;
+    height: 18px;
+    margin:0;
+    float: left;
+    font-size: 12px;
+}
+.ax-file-name input
+{
+	width:80%;
+}
+
+.ax-file-size
+{
+	color: #000;
+    font: 12px 'PT Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    overflow: hidden;
+    width: 100%;
+    margin:0;
+	padding: 0px;
+}
+
+
+.ax-progress-data{
+	float:left;
+	position:relative;
+    text-align:center;
+	width: 100%;
+}
+
+.ax-progress-stat{
+	float:left;
+	width:100%;
+}
+
+.ax-progress
+{
+    background-color: white;
+    border-radius: 2px;
+    margin-top: 4px;
+    padding: 0;
+    float:left;
+    height:14px;
+    width: 70px;
+    position:relative;
+    text-align:center;
+    overflow:hidden;
+}
+
+.ax-progress-bar
+{
+    height: 14px;
+	border-radius: 2px;
+	position:absolute;
+	top:0;
+	left:0;
+	width: 0%;
+	background-image: url(loader.gif);
+}
+
+.ax-progress-info
+{
+	font: 10px 'PT Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+    height: 13px;
+    position:absolute;
+    width: 100%;
+    top:0;
+	left:0;
+}
+
+
+.ax-toolbar
+{
+	overflow:hidden;
+	float:right;
+}
+
+.ax-browse
+{
+	opacity: 0;
+	filter:alpha(opacity=0);
+	font-size:50px;
+	cursor:pointer;
+	height:50px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+.ax-preview
+{
+	max-height:40px;
+	max-width:40px;
+}
+
+.ax-prev-container
+{
+	height:40px;
+    width: 40px;
+    margin: 0 auto;
+    float:left;
+    display: inline-block;
+    background: url(icons.png) no-repeat -41px -41px;
+}
+
+.ax-details
+{
+	float:left;
+	width:36%;
+}
+
+
+/*************************************Light Box CSS***************************************/
+#ax-box
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #fff;
+	z-index: 9998;
+	display: none;
+	border:2px solid #000;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+
+  -webkit-box-shadow: 0px 0px 21px 0px #ffffff; /* Saf3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+     -moz-box-shadow: 0px 0px 21px 0px #ffffff; /* FF3.5 - 3.6 */
+          box-shadow: 0px 0px 21px 0px #ffffff; /* Opera 10.5, IE9, FF4+, Chrome 6+, iOS 5 */
+
+}
+
+#ax-box-shadow
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #000;
+	filter: alpha(opacity=75);
+	-moz-opacity: 0.75;
+	-khtml-opacity: 0.75;
+	opacity: 0.75;
+	z-index: 9997;
+	display: none;
+}
+
+#ax-box-close
+{
+	width:32px;
+	height:32px;
+	background:url(close.png) no-repeat 0 0;
+	top:-5px;
+	right:-5px;
+	position:absolute;
+	cursor:pointer;
+}
+
+#ax-box-fn
+{
+    background: none repeat scroll 0 0 black;
+    bottom: 0;
+    color: white;
+    height: 38px;
+    left: 0;
+    opacity: 0.8;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 15;
+}
+
+#ax-box-fn span
+{
+    display: block;
+    font-family: 'Volkhov',Georgia,sans-serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 38px;
+    padding: 0 20px;
+}
+/*****************************************************************************************************/
+
+
+/*************************************File Type Icons*************************************************/
+.ax-filetype-pdf{
+	background: url(icons.png) no-repeat  -81px 0px;
+}
+.ax-filetype-zip, .ax-filetype-rar{
+	background: url(icons.png) no-repeat  -121px -121px;
+}
+.ax-filetype-doc, .ax-filetype-docx{
+	background: url(icons.png) no-repeat  0 -81px;
+}
+.ax-filetype-exe{
+	background: url(icons.png) no-repeat  -41px 0;
+}
+.ax-filetype-xls,.ax-filetype-xlsx{
+	background: url(icons.png) no-repeat  0 -121px;
+}
+.ax-filetype-xml{
+	background: url(icons.png) no-repeat -121px -81px;
+}
+.ax-filetype-mp4, .ax-filetype-avi{
+	background: url(icons.png) no-repeat -121px -41px;
+}
+.ax-filetype-pdf{
+	background: url(icons.png) no-repeat -81px 0px;
+}
+.ax-filetype-gif{
+	background: url(icons.png) no-repeat -41px -81px;
+}
+.ax-filetype-bmp{
+	background: url(icons.png) no-repeat 0 -41px;
+}
+.ax-filetype-mp3{
+	background: url(icons.png) no-repeat 0 0;
+}
+.ax-filetype-ppt, .ax-filetype-pptx{
+	background: url(icons.png) no-repeat -81px -81px;
+}
+.ax-filetype-tiff{
+	background: url(icons.png) no-repeat -121px 0;
+}
+.ax-filetype-txt{
+	background: url(icons.png) no-repeat -81px -121px;
+}
+
+/*********************Drop Over Class*******************************************************************/
+.ax-drop{
+	border:2px solid blue;
+	border-radius:4px;
+}
+
+
+
+/*************************************ASK DIV***************************************/
+.ax-ask-div{
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	position:absolute;
+	text-align:center;
+	float:left;
+	color:white;
+	background-color:rgba(0,0,0,0.7);
+	display: table;
+	font-size:12px;
+}
+.ax-ask-div .ax-ask-inner{
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.ax-ask-div .ax-ask-quest{
+	width:100%;
+}
+
+.ax-ask-div .ax-button{
+    background-color: white;
+    border-radius: 3px 3px 3px 3px;
+    height: 19px;
+    width: 47px;
+	margin:5px;
+	cursor:pointer;
+}
+.ax-ask-div .ax-button:hover{
+    background-color: green;
+	color:white;
+    border-radius: 3px 3px 3px 3px;
+    height: 19px;
+    width: 47px;
+}
+
+.ax-ask-div .ax-button span{
+	display:inline;
+}
+/***********************************************************************************************/
