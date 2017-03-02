@@ -1,7 +1,7 @@
-# real-uploader
+# Real Uploader
 <a href="http://www.realuploader.com/"><img alt="Real Uploader logo" src="http://www.realuploader.com/images/logo.png"></a>
 ==================
-#### Real Uploader 4.0 - The HTML5 Ajax Uploader
+#### Real Uploader 4.0 - The HTML5 Ajax File Uploader
 
 
 Real Uploader is a HTML5 javascript uploader, for uploading multiple files with ajax on the web.
@@ -31,8 +31,9 @@ modern browsers.
 -   Cross origin support
 -   Exif, IPTC reader for all JPG files
 -   Antifreeze system
-
-#### Next features
 -   Support for JSP
+#### Next features
+
 -   Support for ASPX
 -   Resume uploads
+-   Visual Image Resizer
