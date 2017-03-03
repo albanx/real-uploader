@@ -21,13 +21,13 @@ modern browsers.
 -   Responsive theme
 -   Drag and Drop upload
 -   Image preview
+-   Client side image resize
 -   Check file exists before upload
 -   Events, Callback and APIs
 -   Https support
 -   Server side thumbnail generation for images
 -   Mobile browser support
 -   MD5 client side file calculation
--   Client side image resize
 -   Cross origin support
 -   Exif, IPTC reader for all JPG files
 -   Antifreeze system
