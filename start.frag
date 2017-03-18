@@ -1,8 +1,8 @@
 /**
  * Real Uploader 
  * http://www.realuploader.com/ajaxuploader
- * Build date Thu May 26 2016 20:14:18 GMT+0100 (IST)
- * Copyright 2010-2015, Xscripts, http://www.albanx.com
+ * Build date Sat Mar 18 2017 19:20:18 GMT+0100 (W. Europe Standard Time)
+ * Copyright Xscripts, http://www.albanx.com
  */
 (function (root, factory) {
     var myLibrary = factory();

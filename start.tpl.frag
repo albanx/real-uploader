@@ -2,7 +2,7 @@
  * Real Uploader <%=version%>
  * http://www.realuploader.com/ajaxuploader
  * Build date <%=builddate%>
- * Copyright 2010-2015, Xscripts, http://www.albanx.com
+ * Copyright Xscripts, http://www.albanx.com
  */
 (function (root, factory) {
     var myLibrary = factory();

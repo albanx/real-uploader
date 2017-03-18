@@ -134,7 +134,6 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
      * @constructor
      */
     var RealUploader = function (querySelector, config) {
-
         this.fileList = {};
         this.fileIndex = 0;
         this.uploadQueue = [];
@@ -764,6 +763,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             }
 
             if (!maxFileNumber) {
+                console.warn('Error :Maximum files number reached', maxFileNumber);
                 errors.push({
                     message: _('Maximum files number reached'),
                     error: 'MAX_FILES',
@@ -772,6 +772,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             }
 
             if (!isAllowedExt) {
+                console.warn('Error :Extension not allowed', ext);
                 errors.push({
                     message: _('Extension not allowed'),
                     error: 'ALLOW_EXTENSION',
@@ -780,6 +781,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             }
 
             if (!isSizeAllowed) {
+                console.warn('Error :File size now allowed', size);
                 errors.push({message: _('File size now allowed'), error: 'FILE_SIZE', param: size});
             }
             if (hasUserError) {
