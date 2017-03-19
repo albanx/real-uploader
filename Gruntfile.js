@@ -10,10 +10,11 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         karma: {
-            run: {
-                options: {
-                    configFile: 'tests/config/karma.unit.js'
-                }
+            options: {
+                configFile: 'tests/config/karma.unit.js'
+            },
+            single: {
+                singleRun: true
             }
         },
 
