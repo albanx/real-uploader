@@ -5,15 +5,20 @@ module.exports = function(config) {
     config.set({
 
         // basepath to use
-        // basePath: '../../',
+        basePath: '../../',
 
         //testing frameworks to use
-        frameworks: ['jasmine'],
+        frameworks: ['jasmine', 'requirejs'],
 
         //files to load for loading our app
         files: [
-            'js/ImageEditor.js',
-            'tests/specs/*.js'
+            {pattern: 'libs/**/*.js', included: false},
+            {pattern: 'js/**/*.js', included: false},
+            {pattern: 'tests/**/*spec.js', included: false},
+            'tests/config/main-test.js'
+        ],
+        exclude: [
+            'js/main.js'
         ],
         preprocessors: {
             'js/*.js': 'coverage'
@@ -30,6 +35,7 @@ module.exports = function(config) {
         browsers: [ 'PhantomJS'],
         colors: true,
         singleRun: false,
-        autoWatch: true
+        autoWatch: true,
+
     });
 };

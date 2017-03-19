@@ -10,14 +10,9 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         karma: {
-            package: {
+            run: {
                 options: {
-                    configFile: 'tests/config/karma-package.unit.js'
-                }
-            },
-            application: {
-                options: {
-                    configFile: 'tests/config/karma-app.unit.js'
+                    configFile: 'tests/config/karma.unit.js'
                 }
             }
         },
@@ -240,6 +235,7 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', ['prompt:buildprompt']);
+    grunt.registerTask('test', ['karma']);
 
     grunt.registerTask('build', 'Just build the requirejs', function () {
         grunt.task.run('requirejs:dev');//compile js
