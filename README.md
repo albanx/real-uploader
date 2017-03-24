@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/albanx/real-uploader.svg?branch=master)](https://travis-ci.org/albanx/real-uploader)
+
 # Real Uploader
 <a href="http://www.realuploader.com/"><img alt="Real Uploader logo" src="http://www.realuploader.com/images/logo.png"></a>
 ==================

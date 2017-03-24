@@ -21,7 +21,7 @@ define(['RealUploader'], function(RealUploader) {
         allowDelete:true,
         //remotePath: '/Users/axhaferllari/uploads/',
         //remotePath: '/home/work2fly/lamp/wingbeat/public_html/upload-test/test-path/',
-        accept: "image/*",
+        // accept: "image/*",
         editFilename: true,
         data: {
             var1 : 1,
@@ -29,18 +29,13 @@ define(['RealUploader'], function(RealUploader) {
         },
         listeners: {
             beforeUploadFile: function(file, name) {
-                file.old_name = file.name;
 
             },
             finishFile: function(file){
-                //access the dom object of the file html
-                //file.dom.previewImage
-                //file.dom.previewContainer
-                //file.dom.progressBar
-                //file.dom.progressInfo
-                //file.dom.progressStat
-                file.dom.progressInfo.innerHTML = '100%';
-                this.dom.nameContainer.innerHTML = file.old_name;
+
+            },
+            finish: function () {
+                alert('all files uploaded');
             },
             beforeRenderFile: function(file, template) {
                 var title = "Title: <input type=text name=file_title ><br>";
@@ -63,37 +58,5 @@ define(['RealUploader'], function(RealUploader) {
             allowOverResize: false
         }
     });
-    //var uploader = new RealUploader('#uploader_div', {
-    //    url:'upload.jsp',
-    //    remotePath:'example6/',
-    //    allowDelete: true,
-    //    language: 'en_EN',
-    //    md5Calculate: true,
-    //    exifRead:true,
-    //    maxFileSize: '4G',
-    //    allowedExtensions: ['jpg', 'avi', 'zip', 'png'],
-    //    listeners: {
-    //        init: function() {
-    //
-    //        },
-    //        dragEnter: function(e, element) {
-    //
-    //        },
-    //        dragLeave: function(e, element) {
-    //
-    //        }
-    //    }
-        mainTemplate:   ['<div class="ax-main-container"  style="border: 2px solid orangered; width: 25em; height: 15em; border-radius: 34px;">',
-                            '<h5 class="ax-main-title">Drag &amp; Drop file here</h5>',
-                            '<div class="ax-file-list"></div>',
-                        '</div>'].join("");
-    //    //resizeImage: {
-    //    //    maxWidth: 200,
-    //    //    maxHeight: 600,
-    //    //    keepExif: false,
-    //    //    keepAspectRatio: false
-    //    //}
-    //});
-
     return RealUploader;
 });

@@ -27,8 +27,6 @@ define(/** @lends Constants */ function(){
             preview:            'preview_done'
         },
         ENV: '<%=ENV%>', //dev/production: useful if need to enable log on windows console
-        MD5_ON: <%=MD5_ON%>,
-        EXIF_ON: <%=EXIF_ON%>,
         VERSION: '<%=version%>'
     }
 

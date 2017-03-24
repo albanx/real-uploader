@@ -10,15 +10,11 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         karma: {
-            package: {
-                options: {
-                    configFile: 'tests/config/karma-package.unit.js'
-                }
+            options: {
+                configFile: 'tests/config/karma.unit.js'
             },
-            application: {
-                options: {
-                    configFile: 'tests/config/karma-app.unit.js'
-                }
+            single: {
+                singleRun: true
             }
         },
 
@@ -83,14 +79,11 @@ module.exports = function (grunt) {
         },
 
         template: {
-            commercial: {
+            semver: {
                 options: {
                     data: {
                         builddate: new Date(),
                         version: grunt.config.get('version'),
-                        MD5_ON: 'true',
-                        IMAGE_SCALE_ON: 'true',
-                        EXIF_ON: 'true',
                         ENV: 'PROD'
                     }
                 },
@@ -170,13 +163,6 @@ module.exports = function (grunt) {
 
                     //copy all CSS files, all themes
                     {expand: true, src: ['css/*.css'], dest: 'build/prod/css/', filter: 'isFile', flatten: true},
-                    //Copy to web site repo
-                    {
-                        expand: false,
-                        src: ['build/temp/realuploader-min.js'],
-                        dest: 'web/js/jquery-ui.js',
-                        filter: 'isFile'
-                    },
 
                     //copy minifield and not compressed files
                     {expand: true, src: ['build/temp/*.js'], dest: 'build/prod/js/', filter: 'isFile', flatten: true},
@@ -230,10 +216,27 @@ module.exports = function (grunt) {
                 dest: 'web/download/'
             }
         },
-        shell: {}
+        shell: {},
+        watch: {
+            scripts: {
+                files: ['js/**/*.js'],
+                tasks: ['compass:dev'],
+                options: {
+                    spawn: false
+                }
+            },
+            styles: {
+                files: ['sass/**/*.scss'],
+                tasks: ['compass:dev'],
+                options: {
+                    spawn: false
+                }
+            }
+        }
     });
 
     grunt.registerTask('default', ['prompt:buildprompt']);
+    grunt.registerTask('test', ['karma']);
 
     grunt.registerTask('build', 'Just build the requirejs', function () {
         grunt.task.run('requirejs:dev');//compile js
@@ -241,7 +244,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('doBuild', 'Main task runner', function () {
         var tasks = [];
-        tasks.push('template:commercial');//set constants vars
+        tasks.push('template:semver');//set version
         tasks.push('requirejs:dev');//compile js
         tasks.push('requirejs:min');//compile js min
         tasks.push('compass:dev');//compile sass to css (not needed in this case)
