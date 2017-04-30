@@ -133,7 +133,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
      * condition. If this function return false then the file will not be added to the list
      * @constructor
      */
-    var RealUploader = function (querySelector, config) {
+    var RealUploader = function (querySelector, userConfig) {
         this.fileList = {};
         this.fileIndex = 0;
         this.uploadQueue = [];
@@ -241,8 +241,10 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             beforeRenderFile: [] //runs before the file element is beeing rendered to the dom
         };
 
-        if (this._setMainContainer(querySelector)) {
-            this.defineCheckersAndSetters(config);
+        var container = this._getMainContainer(querySelector);
+        if (container) {
+            this._setMainContainer(container);
+            this._defineCheckersAndSetters(userConfig);
             this.slots = this.config.maxConnections;
             new _(this.config.language);
 
@@ -260,7 +262,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
          * @param userSettings settings  define by the user
          * @returns {Object} settings to be used
          */
-        defineCheckersAndSetters: function (userSettings) {
+        _defineCheckersAndSetters: function (userSettings) {
 
             var me = this;
             //define some getters and setters for validating settings
@@ -373,25 +375,26 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             }
             return true;
         },
-        _setMainContainer: function (querySelector) {
+        _getMainContainer: function (querySelector) {
+            var container = null;
             if (querySelector instanceof HTMLElement) {
-                this.dom.container = querySelector;
+                container = querySelector;
             } else if (typeof querySelector === 'string') {
-                this.dom.container = Utils.getEl(querySelector);
+                container = Utils.getEl(querySelector);
+            }
+            if(!container) {
+                console.warn(querySelector + _(' not found on the DOM'));
             }
 
-            //if no DOM element container found then raise an error and stop
-            if (!this.dom.container) {
-                console.error(querySelector + _(' not found on the DOM'));
-                return false;
-            }
-
+            return container;
+        },
+        _setMainContainer: function (container) {
             //check if the plugin has already been applied to this element
-            if (this.dom.container.classList.contains('ax-uploader')) {
+            if (container.classList.contains('ax-uploader')) {
                 console.warn(_('Real Uploader is already bind to this element'));
-                return false;
+            } else {
+                this.dom.container = container;
             }
-            return true;
         },
         _addRemoveButton: function () {
             var me = this;
@@ -494,7 +497,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
                 dropArea = me.config.dropArea;
             } else if (me.config.dropArea === 'self') {
                 dropArea = this.dom.container;
-            } else if (typeof dropArea === 'string') {
+            } else if (typeof me.config.dropArea === 'string') {
                 dropArea = Utils.getEl(dropArea);
             } else if (typeof me.config.dropArea === 'function') {
                 dropArea = me.config.dropArea.call(this);
