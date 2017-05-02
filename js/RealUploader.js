@@ -554,9 +554,10 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
          * @param dropArea the dom element where to bind the event
          */
         setDropArea: function () {
-            var dropArea = this._findDropArea();
+            var me = this;
+            var dropArea = me._findDropArea();
+
             if (dropArea && dropArea instanceof HTMLElement) {
-                var me = this;
                 me.dom.dropMask = Utils.doEl('div');
                 me.dom.dropMask.classList.add('ax-mask');
                 me.dom.dropMask.innerHTML = '<div class="ax-mask-icon"></div>';
@@ -638,8 +639,8 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
                 me.dom.dropMask.addEventListener('dragleave', dragLeave);
                 me.dom.dropMask.addEventListener('dragover', dragOver);
                 me.dom.dropMask.addEventListener('drop', onDrop);
-                return me;
             }
+            return me;
         },
 
         /**
@@ -653,10 +654,10 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             //if all files had been uploaded then exec finish event
             var runFinish = true;
             var me = this;
-            var fileObj = this.fileList[fileId];
-            for (var fid in this.fileList) {
-                if (this.fileList.hasOwnProperty(fid)) {
-                    var f = this.fileList[fid];
+            var fileObj = me.fileList[fileId];
+            for (var fid in me.fileList) {
+                if (me.fileList.hasOwnProperty(fid)) {
+                    var f = me.fileList[fid];
                     //so if we have any file still not uploaded do not run finish event
                     if (f.status !== Constants.AX_DONE && f.status !== Constants.AX_ERROR) runFinish = false;
                 }

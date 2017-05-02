@@ -1,6 +1,5 @@
 
 define(['RealUploader', 'Constants'], function(RealUploader, Constants) {
-    console.log('1.create real uploader');
 
     describe('RealUploader', function() {
         var uploader;
@@ -97,6 +96,36 @@ define(['RealUploader', 'Constants'], function(RealUploader, Constants) {
 
         it('_findDropArea', function() {
             expect(uploader._findDropArea()).toBeDefined(uploader.dom.container);
+        });
+
+        it('on binding works', function() {
+            uploader.on('finish.myEvent', function () {
+                return false;
+            });
+
+            uploader.on('finish', function () {
+                return 'something else';
+            });
+
+            uploader.on('start', function () {
+                return 'something else';
+            });
+            expect(uploader.events['start'].length).toEqual(1);
+            expect(uploader.events['finish'].length).toEqual(2);
+            expect(uploader.events['finish'][0][2]).toEqual('myEvent');
+        });
+
+        it('off binding works', function() {
+            uploader.on('finish.myEvent', function () {
+                return false;
+            });
+
+            expect(uploader.events['finish'].length).toEqual(1);
+
+            uploader.off('finish.myEvent');
+
+            expect(uploader.events['finish'].length).toEqual(0);
+
         });
     });
 });
