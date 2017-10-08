@@ -40,7 +40,13 @@ modern browsers.
 -   Resume uploads
 -   Visual Image Resizer
 
-#### Developer installation
+#### Prerequisites
+To run and test the upload locally you will need a webserver:
+- PHP 5.6+ and Apache (or nginx), usually WAMP does the trick
+- ASPX and IIS
+- Java and Tomcat
+
+#### Developer installation and build
 - Clone the repo `git clone https://github.com/albanx/real-uploader`
 - Run `npm install`
 - Run `grunt`, a prompt command will guide you through build instruction
