@@ -291,6 +291,21 @@
     opacity: 1;
   }
 }
+/* line 1, ../sass/_editor.scss */
+.ie-toolbar {
+  display: block;
+  position: absolute;
+  top: -45px;
+  left: 0;
+  background: #444;
+  height: 40px;
+  min-width: 40px;
+  z-index: 99;
+  border-radius: 2px;
+  white-space: nowrap;
+  padding: 0 5px;
+}
+
 /* line 4, ../sass/circle-theme/_theme.scss */
 .ax-main-container {
   align-items: center;

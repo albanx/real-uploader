@@ -1,0 +1,13 @@
+.ie-toolbar {
+    display: block;
+    position: absolute;
+    top: -45px;
+    left: 0;
+    background: #444;
+    height: 40px;
+    min-width: 40px;
+    z-index: 99;
+    border-radius: 2px;
+    white-space: nowrap;
+    padding: 0 5px;
+}

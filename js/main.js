@@ -31,6 +31,9 @@ define(['RealUploader'], function(RealUploader) {
             beforeUploadFile: function(file, name) {
 
             },
+            beforeUpload: function(files) {
+                console.log(files);
+            },
             finishFile: function(file){
 
             },

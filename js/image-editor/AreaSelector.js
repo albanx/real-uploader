@@ -1,5 +1,5 @@
 'use strict';
-define(/** @lends Constants */ function () {
+define(function () {
     var AreaSelector = function (container) {
         this.selectedElement = null;
 
