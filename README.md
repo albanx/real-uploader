@@ -5,8 +5,7 @@
 ==================
 #### Real Uploader 4.0 - The HTML5 Ajax File Uploader
 
-
-Real Uploader is a HTML5 javascript uploader, for uploading multiple files with ajax on the web.
+Real Uploader is a HTML5 javascript file uploader, for uploading multiple files with ajax on the web.
 It was born in 2010 when Firefox 3.5 added the mozSlice method and Files api. Now has evolved to support all
 modern browsers.
 
@@ -41,7 +40,7 @@ modern browsers.
 -   Visual Image Resizer
 
 #### Prerequisites
-To run and test the upload locally you will need a webserver:
+To run and test the upload locally you will need on of the following webservers stack:
 - PHP 5.6+ and Apache (or nginx), usually WAMP does the trick
 - ASPX and IIS
 - Java and Tomcat
