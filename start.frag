@@ -2,7 +2,7 @@
  * Real Uploader 
  * http://www.realuploader.com/ajaxuploader
  * Build date Sat Mar 18 2017 19:20:18 GMT+0100 (W. Europe Standard Time)
- * Copyright Xscripts, http://www.albanx.com
+ * Copyright http://www.realuploader.com
  */
 (function (root, factory) {
     var myLibrary = factory();

@@ -23,7 +23,7 @@ modern browsers.
 -   Responsive theme
 -   Drag and Drop upload
 -   Image preview
--   Client side image resize
+-   Fast Image resizing 
 -   Check file exists before upload
 -   Events, Callback and APIs
 -   Https support

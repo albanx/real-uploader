@@ -41,7 +41,7 @@ define([], /** @lends ExifRestorer */ function () {
                         var exifPoint = me.findExifIndex(dataFile);
                         var part1 = dataFile.buffer.slice(0, exifPoint);
                         var part2 = dataFile.buffer.slice(exifPoint);
-                        if (typeof me.onComplete == 'function') {
+                        if (typeof me.onComplete === 'function') {
                             me.onComplete(new Blob([part1, exifData, part2], {type: resizeBlob.type}));
                         }
                     };

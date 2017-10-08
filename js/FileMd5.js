@@ -23,9 +23,9 @@ define(['Utils'], /** @lends FileMd5 */ function (Utils) {
         //event listener of onMessage
         var onMessage = function (event) {
             var a = event.data;
-            if (a.status == 'progress') {
+            if (a.status === 'progress') {
                 me._runStack(me._progress, [a.progress]);
-            } else if (a.status == "end") {
+            } else if (a.status === "end") {
                 me._runStack(me._done, [a.result])._runStack(me._always, [event]);
                 me.md5Worker.terminate();
             }
@@ -69,7 +69,7 @@ define(['Utils'], /** @lends FileMd5 */ function (Utils) {
             return this._addCallback(callback, ctx, 'always');
         },
         _addCallback: function (callback, ctx, queue) {
-            if (typeof callback == 'function') this['_' + queue].push({callback: callback, ctx: ctx});
+            if (typeof callback === 'function') this['_' + queue].push({callback: callback, ctx: ctx});
             return this;
         },
         _runStack: function (stack, params) {

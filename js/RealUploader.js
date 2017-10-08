@@ -290,7 +290,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
 
             Object.defineProperty(me.config, 'language', {
                 get: function () {
-                    if (this._data.language == 'auto') {
+                    if (this._data.language === 'auto') {
                         var language = window.navigator.userLanguage || window.navigator.language;
                         return language.replace('-', '_');
                     }
@@ -324,7 +324,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
                     return this._data.listeners;
                 },
                 set: function (listeners) {
-                    if (typeof listeners == 'object') {
+                    if (typeof listeners === 'object') {
                         for (var event in listeners) {
                             if (listeners.hasOwnProperty(event)) {
                                 var callback = listeners[event];
@@ -444,7 +444,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             var me = this;
             me.dom.browseInput = Utils.getEl(me.dom.container, '.ax-browse');
             if (me.dom.browseInput) {
-                if (me.config.maxFiles != 1) {
+                if (me.config.maxFiles !== 1) {
                     me.dom.browseInput.setAttribute('multiple', 'multiple');
                 }
 
@@ -723,7 +723,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
                 var err = me.checkFile(file.name, file.size, file.extension);
 
                 //if no errors add file to list
-                if (err.length == 0) {
+                if (err.length === 0) {
                     var fileId = this.generateFileId();
                     me.fileList[fileId] = new FileObject(file, fileId, this); //create the file object
 
@@ -810,7 +810,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             var me = this;
             var pending = me.getPendingFiles();
 
-            if (pending.length == 0) {
+            if (pending.length === 0) {
                 me.triggerEvent('error', ['NO_FILES', Constants.AX_NO_FILES]);
             } else if (me.triggerEvent('beforeUpload', [me.fileList]) !== false) {
                 this.triggerEvent('start', [pending]);
@@ -841,7 +841,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
                 Utils.log('Process queue');
                 me.checkInterval = setInterval(function () {
                     Utils.log('Start interval');
-                    if (me.uploadQueue.length == 0) {
+                    if (me.uploadQueue.length === 0) {
                         clearInterval(me.checkInterval);
                         me.checkInterval = null;
                         Utils.log('No more files. Stop timer.');
@@ -849,7 +849,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
                         me.globalStatus = Constants.AX_UPLOADING;
                         for (var i = 0; i < me.uploadQueue.length; i++) {
                             var file = me.uploadQueue[i];
-                            if (me.slots > 0 && file.status == Constants.AX_READY && !file.disabled) {
+                            if (me.slots > 0 && file.status === Constants.AX_READY && !file.disabled) {
                                 var fo = me.uploadQueue.shift();
                                 fo.startUpload();//start file upload
                                 me.slots--;
@@ -870,7 +870,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             for (var fileId in this.fileList) {
                 if (this.fileList.hasOwnProperty(fileId)) {
                     var f = this.fileList[fileId];
-                    if (f.status == Constants.AX_READY || f.status == Constants.AX_IDLE || f.status == Constants.AX_CHECK) {
+                    if (f.status === Constants.AX_READY || f.status === Constants.AX_IDLE || f.status === Constants.AX_CHECK) {
                         arr.push(f);
                     }
                 }
@@ -883,21 +883,21 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
          * @returns {boolean}
          */
         isUploading: function () {
-            return this.globalStatus == Constants.AX_UPLOADING;
+            return this.globalStatus === Constants.AX_UPLOADING;
         },
         /**
          * Return true if the uploader status is IDLE
          * @returns {boolean}
          */
         isIdle: function () {
-            return this.globalStatus == Constants.AX_IDLE;
+            return this.globalStatus === Constants.AX_IDLE;
         },
         /**
          * Helper function for external use for getting the number of the files
          * @returns {boolean}
          */
         hasFiles: function () {
-            return Object.keys(this.fileList).length != 0;
+            return Object.keys(this.fileList).length !== 0;
         },
         /**
          * Internal function called by the file object
@@ -931,7 +931,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
 
             //eval file path
             var remotePath = config.remotePath;
-            if (typeof remotePath == 'function') {
+            if (typeof remotePath === 'function') {
                 remotePath = remotePath.call(this, file);
             }
 
@@ -1017,7 +1017,7 @@ define(['FileObject', 'Constants', 'Utils', 'i18n'], /** @lends RealUploader */ 
             for (var fileId in this.fileList) {
                 if (this.fileList.hasOwnProperty(fileId)) {
                     var f = this.fileList[fileId];
-                    if (f.status == Constants.AX_UPLOADING) {
+                    if (f.status === Constants.AX_UPLOADING) {
                         f.stopUpload();
                     }
                 }

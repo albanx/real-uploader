@@ -27,8 +27,6 @@ define(/** @lends Constants */ function () {
             preview: 'preview_done'
         },
         ENV: 'PROD', //dev/production: useful if need to enable log on windows console
-        MD5_ON: true,
-        EXIF_ON: true,
         VERSION: '',
         TEMPLATE: '<div class="ax-main-container">' +
         '<h5 class="ax-main-title">Select Files or Drag&amp;Drop Files</h5>' +

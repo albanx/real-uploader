@@ -134,7 +134,7 @@ function (Constants, Utils, SimpleRunner, _, FileMd5, ExifReader, ImageScale) {
             }
 
             //calculate md5
-            if (typeof FileMd5 !== 'undefined' && me.config.md5Calculate && Constants.MD5_ON) {
+            if (typeof FileMd5 !== 'undefined' && me.config.md5Calculate) {
 
                 //trigger md5 event start
                 me.AU.triggerEvent('md5Start', [me]);
@@ -154,7 +154,7 @@ function (Constants, Utils, SimpleRunner, _, FileMd5, ExifReader, ImageScale) {
             }
 
             //exif read
-            if (typeof ExifReader !== 'undefined' && me.config.exifRead && Constants.EXIF_ON) {
+            if (typeof ExifReader !== 'undefined' && me.config.exifRead) {
                 var exifApp = new ExifReader(me.file);
                 exifApp.done(function (exif) {
                     Utils.log('exif calculated', exif);
@@ -857,7 +857,7 @@ function (Constants, Utils, SimpleRunner, _, FileMd5, ExifReader, ImageScale) {
             me.requestStartTime = new Date();
             me.abortTimeout = null;
 
-            if (chunkSize == 0) {
+            if (chunkSize === 0) {
                 chunk = file;
                 isLast = true;
             } else {
@@ -888,14 +888,14 @@ function (Constants, Utils, SimpleRunner, _, FileMd5, ExifReader, ImageScale) {
             }, false);
 
             me.xhr.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+                if (this.readyState === 4 && this.status === 200) {
                     me.AU.triggerEvent('chunkUpload', [file, name, chunk, me.xhr]);
                     try {
                         var ret = JSON.parse(this.responseText);
                         // get the temp name from the server
                         // the first uploaded chunk returns also the temporary name on the server
                         // this name will be used to upload the next chunks
-                        if (currentByte == 0) {
+                        if (currentByte === 0) {
                             me.setTempName(ret.temp_name);
                         }
 
@@ -922,7 +922,7 @@ function (Constants, Utils, SimpleRunner, _, FileMd5, ExifReader, ImageScale) {
                     } catch (err) {
                         me._onError('server_error', err.toString());
                     }
-                } else if (this.status == 404) {
+                } else if (this.status === 404) {
                     me._onError('server_error', '_upload::URL not found 404. Be sure to point to the correct upload.php.');
                 }
             };
@@ -985,9 +985,9 @@ function (Constants, Utils, SimpleRunner, _, FileMd5, ExifReader, ImageScale) {
             me.setMessage(msg)
                 .setInfo(err);
 
-            if (err == 'aborted') {
+            if (err === 'aborted') {
                 me.setStatus(Constants.AX_READY); //set status to idle
-            } else if (err == 'error') {
+            } else if (err === 'error') {
                 me.setStatus(Constants.AX_ERROR);
 
                 if (me.config.removeOnError) {
