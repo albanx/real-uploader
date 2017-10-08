@@ -41,7 +41,7 @@ module.exports = function (grunt) {
                             choices: function () {
                                 var json = grunt.file.readJSON('version.json');
                                 grunt.config.set('version', json.version);
-                                var buildType = [{
+                                return [{
                                     name: 'Build package v.' + grunt.config.get('version'),
                                     value: 'build'
                                 }, {
@@ -51,8 +51,6 @@ module.exports = function (grunt) {
                                     name: 'Build i18n',
                                     value: 'i18n'
                                 }];
-
-                                return buildType;
                             }
                         },
                         {
@@ -62,14 +60,15 @@ module.exports = function (grunt) {
                         }
                     ],
                     then: function (results, done) {
+                        var buildType = results['prompt.buildType'];
                         if (results['prompt.execute']) {
                             grunt.config.set('buildType', results['prompt.buildType']);
 
-                            if (results['prompt.buildType'] == 'build') {
+                            if (buildType === 'build') {
                                 grunt.task.run(['doBuild']);
-                            } else if (results['prompt.buildType'] == 'generateDoc') {
+                            } else if (buildType === 'generateDoc') {
                                 grunt.task.run(['generateDoc']);
-                            } else if (results['prompt.buildType'] == 'i18n') {
+                            } else if (buildType === 'i18n') {
                                 grunt.task.run(['i18n']);
                             }
                         }

@@ -34,8 +34,13 @@ modern browsers.
 -   Exif, IPTC reader for all JPG files
 -   Antifreeze system
 -   Support for JSP
-#### Next features
 
+#### Next features
 -   Support for ASPX
 -   Resume uploads
 -   Visual Image Resizer
+
+#### Developer installation
+- Clone the repo `git clone https://github.com/albanx/real-uploader`
+- Run `npm install`
+- Run `grunt`, a prompt command will guide you through build instruction

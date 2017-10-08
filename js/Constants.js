@@ -77,7 +77,7 @@ define(/** @lends Constants */ function () {
             '<span class="ax-btn-text"></span>',
             '</a>',
             '</div>'].join('')
-    }
+    };
 
     return Constants;
 });
