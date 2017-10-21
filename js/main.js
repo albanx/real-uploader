@@ -14,6 +14,7 @@ requirejs.config({
 //start our app here
 define(['RealUploader'], function(RealUploader) {
     var uploader = new RealUploader("#uploader_div", {
+        url: 'upload.aspx',
         autoStart: false,
         hideUploadButton: false,
         removeOnSuccess: true,

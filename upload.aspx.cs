@@ -2,6 +2,7 @@
 using System.Data;
 using System.Configuration;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Web;
 using System.Web.Security;
@@ -13,249 +14,89 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Security.Cryptography;
+using System.Web.Script.Serialization;
 
-public partial class upload : System.Web.UI.Page
+public class RealUploader
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {   
-        /************************************************************************
-         * Email configuration
-         * **********************************************************************/
-        bool send_email         = false;                //enable email notification
-        string main_receiver    = "albanx@gmail.com";   //who receive the email
-        string cc               = "";                   //other receivers in cc
-        string from             = "from@ajaxupload.com";//who appear in the from field
-        /*****************************************************************************/
+    private string fileName;
+    private string tempFileName;
+    private int fileSize = 0;
+    private string uploadPath;
+    private string tempPath;
+    private string[] allowExtensions = new string[0];
+    private string[] denyExtensions;
+    private int maxFileSize = 10485760; //10M
+    private bool overrideFile = false;
+    private string allowCrossOrigin = "";
+    private string clientMd5 = "";
+    private bool checkMd5 = false;
+    private IDictionary checkSumMsg = new Dictionary<string, string>();
 
+    HttpRequest Request = HttpContext.Current.Request;
+    HttpResponse Response = HttpContext.Current.Response;
 
-        /***********************************************************************************************************
-         * RECOMMENDED CONFIGURATION HERE
-         * The following parameters can be changed, and is reccomended to change them from here for security reason
-         ***********************************************************************************************************/
-        string upload_path      = Server.MapPath(string.IsNullOrEmpty(Request.Params["ax-file-path"]) ? "" : Request.Params["ax-file-path"]);
-        string max_file_size    = string.IsNullOrEmpty(Request.Params["ax-max-file-size"]) ? "10M" : Request.Params["ax-max-file-size"];
-        string allow_ext_req    = string.IsNullOrEmpty(Request.Params["ax-allow-ext"]) ? "" : Request.Params["ax-allow-ext"];
-        string[] allow_ext      = (allow_ext_req.Length > 0) ? allow_ext_req.Split('|') : new string[0];
-		bool allow_delete 		= true;
-        /**********************************************************************************************************/
+    public RealUploader()
+    {
+        checkSumMsg.Add("success", "1");
+        checkSumMsg.Add("message", "disabled");
+        checkSumMsg.Add("serverMd5", "");
+        checkSumMsg.Add("clientMd5", "");
+        setUploadPath("d:/uploads");
 
-
-        /************************************************************************************************************
-        * Settings for thumbnail generation, can be changed here or from js
-        ************************************************************************************************************/
-        int thumb_height        = string.IsNullOrEmpty(Request.Params["ax-thumbHeight"]) ? 0 : Convert.ToInt32(Request.Params["ax-thumbHeight"]);
-        int thumb_width         = string.IsNullOrEmpty(Request.Params["ax-thumbWidth"]) ? 0 : Convert.ToInt32(Request.Params["ax-thumbWidth"]);
-        string thumb_post_fix   = string.IsNullOrEmpty(Request.Params["ax-thumbPostfix"]) ? "_thumb" : Request.Params["ax-thumbPostfix"];
-        string thumb_path       = string.IsNullOrEmpty(Request.Params["ax-thumbPath"]) ? "" : Request.Params["ax-thumbPath"];
-        string thumb_format     = string.IsNullOrEmpty(Request.Params["ax-thumbFormat"]) ? "png" : Request.Params["ax-thumbFormat"];
-        /**********************************************************************************************************/
-
-        /********************************************************************************************************
-        * HTML5 UPLOAD PARAMETERS, NOT TO CHANGE 
-        ********************************************************************************************************/
-        string file_name    = string.IsNullOrEmpty(Request.Params["ax-file-name"]) ? "" : Request.Params["ax-file-name"];
-        int curr_byte       = string.IsNullOrEmpty(Request.Params["ax-start-byte"]) ? 0 : Convert.ToInt32(Request.Params["ax-start-byte"]);
-        int full_size       = string.IsNullOrEmpty(Request.Params["ax-file-size"]) ? 0 : Convert.ToInt32(Request.Params["ax-file-size"]);
-        string is_last      = string.IsNullOrEmpty(Request.Params["ax-last-chunk"]) ? "true" : Request.Params["ax-last-chunk"];
-        bool is_ajax        = (!string.IsNullOrEmpty(Request.Params["ax-last-chunk"]) && !string.IsNullOrEmpty(Request.Params["ax-start-byte"]));
-        /**********************************************************************************************************/
-
-        /*
-        * Create upload path if do not exits
-        */
-        if (!System.IO.File.Exists(upload_path))
-        {
-            System.IO.Directory.CreateDirectory(upload_path);
+        if (!string.IsNullOrEmpty(Request.Params["ax-file-name"])) {
+            fileName = Request.Params["ax-file-name"];
         }
 
-        /*
-        * Create thumb path if do not exits
-        */
-        if (!System.IO.File.Exists(thumb_path) && thumb_path.Length > 0)
-        {
-            System.IO.Directory.CreateDirectory(thumb_path);
-        }
-        else
-        {
-            thumb_path = upload_path;
+        if (!string.IsNullOrEmpty(Request.Params["ax-temp-name"])) {
+            tempFileName = Request.Params["ax-temp-name"];
         }
 
-        //Start upload controls
-        file_name = string.IsNullOrEmpty(file_name) ? Request.Files[0].FileName : file_name;
-
-
-		if( !string.IsNullOrEmpty(Request.Params["ax-check-file"]) )
-		{
-			if(System.IO.File.Exists(upload_path + file_name))
-			{
-				Response.Write("yes");
-			}
-			else
-			{
-				Response.Write("no");
-			}
-			return;
-		}
-		
-		if(!string.IsNullOrEmpty(Request.Params["ax-delete-file"]) && allow_delete)
-		{
-			System.IO.File.Delete(upload_path + file_name);
-			Response.Write("1");
-			return;
-		}
-		
-        full_size = (full_size > 0) ? full_size : Request.Files[0].ContentLength;
-        //check file size
-        if (!checkSize(full_size, max_file_size))
-        {
-            Response.Write(@"{""name"":""" + file_name + @""",""size"":""" + full_size.ToString() + @""",""status"":""-1"",""info"":""Max file size execced""}");
-            return;
+        if (!string.IsNullOrEmpty(Request.Params["ax-file-size"])) {
+            fileSize = Convert.ToInt32(Request.Params["ax-file-size"]);
         }
 
-
-        //check file name
-        string tmp_fn = file_name;
-        file_name = checkName(file_name);
-        if (file_name.Length == 0)
-        {
-            Response.Write(@"{""name"":""" + tmp_fn + @""",""size"":""" + full_size.ToString() + @""",""status"":""-1"",""info"":""File name not allowed""}");
-            return;
+        if (!string.IsNullOrEmpty(Request.Params["ax-max-file-size"])) {
+            maxFileSize = Convert.ToInt32(Request.Params["ax-max-file-size"]);
         }
 
-        //check file ext
-        if (!checkExt(file_name, allow_ext))
-        {
-            Response.Write(@"{""name"":""" + file_name + @""",""size"":""" + full_size.ToString() + @""", ""status"":""-1"", ""info"":""File extension not allowed"", ""byte"":"""+curr_byte.ToString()+@"""}");
-            return;
+        //get the file path where to upload the file
+        //Hint: avoid from settings this path from JS unless in protected environment
+        if (!string.IsNullOrEmpty(Request.Params["ax-file-path"])) {
+            setUploadPath(Request.Params["ax-file-path"]);
         }
 
-        string full_path = "";
-        if (is_ajax)
-        {
-            //calculate path and file exists only on the first chunk
-            full_path = (curr_byte==0)? checkFileExists(file_name, upload_path) : upload_path+file_name;
-
-            //append data flag
-            FileMode flag = (curr_byte==0) ? FileMode.Create : System.IO.FileMode.Append;
-            FileStream fileStream = new FileStream(full_path, flag, System.IO.FileAccess.Write, System.IO.FileShare.None);
-            byte[] bytesInStream;
-            if (Request.Files.Count > 0)
-            {
-                HttpPostedFile file = Request.Files[0];
-                bytesInStream = new byte[file.ContentLength];
-                file.InputStream.Read(bytesInStream, 0, (int)bytesInStream.Length);
-            }
-            else
-            {
-                bytesInStream = new byte[Request.InputStream.Length];
-                Request.InputStream.Read(bytesInStream, 0, (int)bytesInStream.Length);
-            }
-
-            fileStream.Write(bytesInStream, 0, bytesInStream.Length);
-            fileStream.Close();
-            if (!is_last.Equals("true"))
-                Response.Write(@"{""name"":""" + System.IO.Path.GetFileName(full_path) + @""",""size"":""" + full_size.ToString() + @""",""status"":""1"",""info"":""File chunk uploaded"", ""byte"":"""+curr_byte.ToString()+@"""} ");
-        }
-        else
-        {
-            is_last = "true";
-            full_path = checkFileExists(file_name, upload_path);
-            try
-            {
-                HttpPostedFile file = Request.Files[0];
-                file.SaveAs(full_path);
-            }
-            catch (Exception ex)
-            {
-                Response.Write(@"{""name"":""" + System.IO.Path.GetFileName(full_path) + @""",""size"":""" + full_size.ToString() + @""",""status"":""-1"",""info"":""Generi error:"+ex.Message+@"""}");
-                return;
-            }
+        if (!string.IsNullOrEmpty(Request.Params["ax-allow-ext"])) {
+            string allowExtString = Request.Params["ax-allow-ext"];
+            allowExtensions = (allowExtString.Length > 0) ? allowExtString.Split('|') : new string[0];
         }
 
-        if (is_last.Equals("true"))
-        {
-            createThumb(full_path, thumb_path, thumb_post_fix, thumb_width, thumb_height, thumb_format);
-            Response.Write(@"{""name"":""" + System.IO.Path.GetFileName(full_path) + @""",""size"":""" + full_size.ToString() + @""",""status"":""1"",""info"":""File uploaded""}");
+        if (!string.IsNullOrEmpty(Request.Params["ax-file-md5"])) {
+            clientMd5 = Request.Params["ax-file-md5"];
         }
+
+        overrideFile = !string.IsNullOrEmpty(Request.Params["ax-override"]);
+        checkMd5 = !string.IsNullOrEmpty(Request.Params["ax-md5checksum"]);
+        tempPath = System.IO.Path.GetTempPath();
+        denyExtensions = new string[] {"php", "php3", "php4", "php5", "phtml", "exe", "pl", "cgi", "html", "htm", "js", "asp", "aspx", "bat", "sh", "cmd" };
     }
 
-    public string createThumb(string filepath, string thumbPath, string postfix, int maxw, int maxh, string format)
+        /**
+     * Set and create the upload path
+     *
+     * @param $uploadPath
+     */
+    public void setUploadPath(string uploadPath)
     {
-        if (maxw <= 0 && maxh <= 0)
-	    {
-		    return "No valid width or height given";
-	    }
-
-        string[] web_formats = new string[] {"jpg", "png", "jpeg", "gif"};
-
-
-        //get file extension to check if can do the preview
-        string file_ext	    = Path.GetExtension(filepath).Replace(".", "");
-        string file_name    = Path.GetFileNameWithoutExtension(filepath);
-
-        //if format is not set then set thumbnail format as file extension
-        if (format.Length == 0) format = file_ext;
-
-
-        if (Array.IndexOf(web_formats, format.ToLower())<0)
-        {
-            return "No valid supported image file";
+        this.uploadPath = uploadPath;
+        try {
+            if(!Directory.Exists(uploadPath)) {
+                DirectoryInfo di = Directory.CreateDirectory(uploadPath);
+            }
+        } catch(Exception e) {
+            Console.WriteLine("The process failed: {0}", e.ToString());
         }
 
-        //and create thumbnail name
-        string thumb_name = file_name + postfix + "." + format;
-
-        
-        //if I have not set any path for thumbnail generation then save same as file path
-		if(thumbPath.Length==0)
-	    {
-		    thumbPath=Path.GetDirectoryName(filepath);	
-	    }
-        
-        //add final slash to thumb path
-        if(!thumbPath[thumbPath.Length-1].Equals(@"\") || !thumbPath[thumbPath.Length-1].Equals("/"))
-        {
-            thumbPath+=Path.DirectorySeparatorChar;
-        }
-
-        //create the preview propotionally respecting maxw and maxh
-	    System.Drawing.Image img = System.Drawing.Image.FromFile(filepath);
-
-        double ratioX     = (double)maxw/img.Width;
-        double ratioY     = (double)maxh/img.Height;
-        double ratio      = (double)Math.Min(ratioX, ratioY);
-        ratio           = (ratio==0)? (double) Math.Max(ratioX,ratioY):ratio;
-
-        int newW        = (int)(img.Width*ratio);
-        int newH        = (int)(img.Height*ratio);
-
-		/*Response.Write(img.Width );
-		 Response.Write(newW );
-		 Response.Write(newH );*/
-		Bitmap newImg = new Bitmap(newW, newH);
-		Graphics graphic = Graphics.FromImage(newImg);
-		graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
-		graphic.SmoothingMode = SmoothingMode.HighQuality;
-		graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
-		graphic.CompositingQuality = CompositingQuality.HighQuality;
-		graphic.DrawImage(img, 0, 0, newW, newH);
-
-        //System.Drawing.Image newImg = img.GetThumbnailImage(newW, newH, null, new System.IntPtr());
-        switch(format)
-        {
-            case "png":
-                newImg.Save(thumbPath+thumb_name, System.Drawing.Imaging.ImageFormat.Png);
-            break;
-            case "gif":
-                newImg.Save(thumbPath+thumb_name, System.Drawing.Imaging.ImageFormat.Gif);
-            break;
-            default:
-                newImg.Save(thumbPath+thumb_name, System.Drawing.Imaging.ImageFormat.Jpeg);
-            break;
-        }
-        img.Dispose();
-        newImg.Dispose();
-        return "ok";
     }
 
     /**
@@ -264,66 +105,88 @@ public partial class upload : System.Web.UI.Page
      * @param unknown_type $size
      * @param unknown_type $max_file_size
      */
-    public bool checkSize(int file_size, string max_file_size)
+    public bool checkSize()
     {
-        string mult = max_file_size.Substring(Math.Max(0, max_file_size.Length - 1));
-        Int64 msize = Convert.ToInt32(max_file_size.Replace(mult, ""));
-        Int64 max_size;
-
-        switch (mult)
-        {
-            case "T":
-                max_size = msize * 1024*1024*1024*1024;break;
-            case "G":
-                max_size = msize * 1024*1024*1024;break;
-            case "M":
-                max_size = msize * 1024*1024;break;
-            case "K":
-                max_size = msize * 1024;break;
-            default:
-                max_size = 4 * 1024 * 1024;break;
-        }
-
-        if (file_size > max_size)
+        if (fileSize > maxFileSize)
         {
             return false;
         }
         return true;
     }
 
-    /**
-     * Check if filename is allowed
-     */
-    public string checkName(string filename)
+    public bool checkName()
     {
         string[] windowsReserved = new string[] { "CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
         string[] badWinChars = new string[] { "<", ">", ":", @"\", "/", "|", "?", "*" };
 
         for (int i = 0; i < badWinChars.Length; i++)
         {
-            filename.Replace(badWinChars[i], "");
+            fileName.Replace(badWinChars[i], "");
         }
         //check if legal windows file name
-        if (Array.IndexOf(windowsReserved, filename) >= 0)
+        if (Array.IndexOf(windowsReserved, fileName) >= 0)
         {
-            return "";
+            return false;
         }
-        return filename;
+        return true;
     }
 
-    public bool checkExt(string filename, string[] allow_ext)
+    public void checkFileExists()
     {
-        string file_ext = System.IO.Path.GetExtension(filename).Replace(".", "");
-        file_ext = file_ext.ToLower();
+        string fileExt     = System.IO.Path.GetExtension(fileName).Replace(".", "");
+        string fileBase    = System.IO.Path.GetFileNameWithoutExtension(fileName);
+        string fullPath    = uploadPath + fileName;
 
-        string[] deny_ext = new string[] {"php", "php3", "php4", "php5", "phtml", "exe", "pl", "cgi", "html", "htm", "js", "asp", "aspx", "bat", "sh", "cmd" };
+        //avoid file override, check if file exists and generate another name
+        //to override file with same name just disable this while
+        int c = 0;
+        while (System.IO.File.Exists(fullPath))
+        {
+            c++;
+            fileName = fileBase + "(" + c.ToString() + ")." + fileExt;
+            fullPath = uploadPath + fileName;
+        }
+    }
 
-        if (Array.IndexOf(deny_ext, file_ext) >= 0)
+    public void finish()
+    {
+
+    }
+
+    public void doFileExists()
+    {
+        string msg = System.IO.File.Exists(uploadPath + fileName) ? "yes" : "no";
+        message(1, msg);
+    }
+
+    public void sendHeaders()
+    {
+        Response.AppendHeader("Cache-Control", "no-cache, must-revalidate"); // HTTP/1.1
+        Response.AppendHeader("Expires", "Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+        Response.AppendHeader("X-Content-Type-Options", "nosniff");
+        Response.AppendHeader("Content-Type", "application/json");
+
+        //if we need to upload files across domains then enable allow origin variable with the domain value
+        if (allowCrossOrigin.Length > 0) {
+            Response.AppendHeader("Access-Control-Allow-Origin", allowCrossOrigin);
+            Response.AppendHeader("Access-Control-Allow-Credentials", "false");
+            Response.AppendHeader("Access-Control-Allow-Methods", "OPTIONS, HEAD, GET, POST, PUT, PATCH, DELETE");
+            Response.AppendHeader("Access-Control-Allow-Headers", "Content-Type, Content-Range, Content-Disposition");
+        }
+    }
+
+
+    public bool checkExt()
+    {
+        string fileExt = System.IO.Path.GetExtension(fileName).Replace(".", "");
+        fileExt = fileExt.ToLower();
+
+        if (Array.IndexOf(denyExtensions, fileExt) >= 0)
         {
             return false;
         }
 
-        if (Array.IndexOf(allow_ext, file_ext) < 0 && allow_ext.Length > 0)
+        if (Array.IndexOf(allowExtensions, fileExt) < 0 && allowExtensions.Length > 0)
         {
             return false;
         }
@@ -331,21 +194,121 @@ public partial class upload : System.Web.UI.Page
         return true;
     }
 
-    public string checkFileExists(string filename, string upload_path)
+    public bool checkFile()
     {
-        string file_ext     = System.IO.Path.GetExtension(filename).Replace(".", "");
-        string file_base    = System.IO.Path.GetFileNameWithoutExtension(filename);
-        string full_path    = upload_path + filename;
-
-        //avoid file override, check if file exists and generate another name
-        //to override file with same name just disable this while
-        int c = 0;
-        while (System.IO.File.Exists(full_path))
-        {
-            c++;
-            filename = file_base + "(" + c.ToString() + ")." + file_ext;
-            full_path = upload_path + filename;
+        if(!checkExt()) {
+            message(-1, "File extension is not allowed");
         }
-        return full_path;
+
+        if (!checkName()) {
+            message(-1, "File name is not allowed");
+        }
+
+        if (!checkSize()) {
+            message(-1, "File size not allowed: " + maxFileSize);
+        }
+
+        return true;
+    }
+
+    public void uploadFile()
+    {
+        if(checkFile()) {
+            uploadAjax();
+        }
+    }
+
+    /**
+     * Main Upload method. Handle file uploads and checks
+     */
+    private void uploadAjax()
+    {
+        int currByte = string.IsNullOrEmpty(Request.Params["ax-start-byte"]) ? 0 : Convert.ToInt32(Request.Params["ax-start-byte"]);
+        HttpPostedFile fileChunk = Request.Files[0];
+        byte[] bytesInStream = new byte[fileChunk.ContentLength];
+        fileChunk.InputStream.Read(bytesInStream, 0, (int)bytesInStream.Length);
+
+        if (currByte == 0) {
+            tempFileName = Path.GetFileName(Path.GetTempFileName());
+        }
+
+        string tempFile = tempPath + Path.DirectorySeparatorChar + tempFileName;
+        string finalFile = uploadPath + Path.DirectorySeparatorChar + fileName;
+        try
+        {
+            FileStream fileStream = new FileStream(tempFile, FileMode.Append, System.IO.FileAccess.Write, System.IO.FileShare.None);
+            fileStream.Write(bytesInStream, 0, bytesInStream.Length);
+            fileStream.Close();
+        } catch(Exception e) {
+            message(-1, "Cannot write on file, please check permissions: " + tempFile);
+        }
+
+        long currentFileSize = new FileInfo(tempFile).Length;
+
+        if (fileSize > currentFileSize) { 
+            message(1, "Chunk uploaded");
+        } else {
+            try {
+                checkFileExists();
+                File.Move(tempFile, finalFile);
+                verifyMd5(finalFile);
+                finish();
+                message(1, "File uploaded");
+            } catch(IOException e) {
+                message(-1, "File move error: " + finalFile);
+            }
+        }
+    }
+
+    private void verifyMd5(string filePath)
+    {
+        if (checkMd5 && clientMd5.Length > 0) {
+            var stream = File.OpenRead(filePath);
+            MD5 md5Hash = MD5.Create();
+            string serverMd5 = BitConverter.ToString(md5Hash.ComputeHash(stream)).Replace("-","‌​").ToLower();
+            if (serverMd5.Equals(clientMd5)) {
+                checkSumMsg.Add("success", "1");
+                checkSumMsg.Add("message", "MD5 check correctly");
+                checkSumMsg.Add("serverMd5", serverMd5);
+                checkSumMsg.Add("clientMd5", clientMd5);
+            } else {
+                checkSumMsg.Add("success", "-1");
+                checkSumMsg.Add("message", "MD5 check failed");
+                checkSumMsg.Add("serverMd5", serverMd5);
+                checkSumMsg.Add("clientMd5", clientMd5);
+            }
+        }
+    }
+
+    private void message(int status, string msg)
+    {
+        sendHeaders();
+        IDictionary response = new Dictionary<string, string>();
+        string checkSumString = new JavaScriptSerializer().Serialize(checkSumMsg);
+
+        response.Add("name", fileName);
+        response.Add("temp_name", tempFileName);
+        response.Add("size", fileSize.ToString());
+        response.Add("status", status.ToString());
+        response.Add("checkSum", checkSumString);
+        response.Add("info", msg);
+        response.Add("path", uploadPath);
+        string responseJson = new JavaScriptSerializer().Serialize(response);
+
+        Response.Write(responseJson);
+    }
+}
+
+
+public partial class upload : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+       RealUploader uploader = new RealUploader();
+       if (!string.IsNullOrEmpty(Request.Params["ax-check-file"])) {
+           uploader.doFileExists();
+       } else {
+           uploader.uploadFile();
+       }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace RealUploader;
 
 /**
@@ -29,13 +30,23 @@ class RealUploader
     private $checkMd5         = false;
     private $checkSumMsg      = ['success' => true, 'message' => 'disabled'];
 
-    public $uploadErrors = [UPLOAD_ERR_OK => "No errors.", UPLOAD_ERR_INI_SIZE => "The uploaded file exceeds the upload_max_filesize directive in php.ini", UPLOAD_ERR_FORM_SIZE => "Larger than form maxFileSize.", UPLOAD_ERR_PARTIAL => "Partial upload.", UPLOAD_ERR_NO_FILE => "No file.", UPLOAD_ERR_NO_TMP_DIR => "No temporary directory.", UPLOAD_ERR_CANT_WRITE => "Can't write to disk.", UPLOAD_ERR_EXTENSION => "File upload stopped by extension."];
+    public $uploadErrors = [
+        UPLOAD_ERR_OK => "No errors.",
+        UPLOAD_ERR_INI_SIZE => "The uploaded file exceeds the upload_max_filesize directive in php.ini",
+        UPLOAD_ERR_FORM_SIZE => "Larger than form maxFileSize.",
+        UPLOAD_ERR_PARTIAL => "Partial upload.",
+        UPLOAD_ERR_NO_FILE => "No file.",
+        UPLOAD_ERR_NO_TMP_DIR => "No temporary directory.",
+        UPLOAD_ERR_CANT_WRITE => "Can't write to disk.",
+        UPLOAD_ERR_EXTENSION => "File upload stopped by extension."
+    ];
 
     /**
      * RealUploader constructor.
      * Get the input information from GET/POST and filters them
      */
-    public function __construct() {
+    public function __construct()
+    {
         //make a sanitize to the file names to avoid any path scale ../../
         if (isset($_REQUEST['ax-file-name'])) {
             $this->fileName = basename($_REQUEST['ax-file-name']);
@@ -89,7 +100,25 @@ class RealUploader
         $this->tempPath = ($iniTmpDir ? $iniTmpDir : sys_get_temp_dir()) . '/';
 
         //set deny extensions by default
-        $this->denyExtensions = ['php', 'php3', 'php4', 'php5', 'phtml', 'exe', 'pl', 'cgi', 'html', 'htm', 'js', 'asp', 'aspx', 'bat', 'sh', 'cmd', 'jsp'];
+        $this->denyExtensions = [
+            'php',
+            'php3',
+            'php4',
+            'php5',
+            'phtml',
+            'exe',
+            'pl',
+            'cgi',
+            'html',
+            'htm',
+            'js',
+            'asp',
+            'aspx',
+            'bat',
+            'sh',
+            'cmd',
+            'jsp'
+        ];
     }
 
     /**
@@ -97,7 +126,8 @@ class RealUploader
      *
      * @param int $maxFileSize
      */
-    public function setMaxFileSize($maxFileSize = 10000000) {
+    public function setMaxFileSize($maxFileSize = 10000000)
+    {
         $this->maxFileSize = $maxFileSize;
     }
 
@@ -107,7 +137,8 @@ class RealUploader
      *
      * @param array $allow_ext
      */
-    public function setAllowExt($allow_ext = []) {
+    public function setAllowExt($allow_ext = [])
+    {
         $this->allowExtensions = $allow_ext;
     }
 
@@ -116,7 +147,8 @@ class RealUploader
      *
      * @param $uploadPath
      */
-    public function setUploadPath($uploadPath) {
+    public function setUploadPath($uploadPath)
+    {
         $this->uploadPath = rtrim($uploadPath, '\\/');
         $this->makeDir($this->uploadPath);
     }
@@ -126,7 +158,8 @@ class RealUploader
      *
      * @param $bool
      */
-    public function setOverride($bool) {
+    public function setOverride($bool)
+    {
         $this->overrideFile = $bool;
     }
 
@@ -135,7 +168,8 @@ class RealUploader
      *
      * @param $dir
      */
-    private function makeDir($dir) {
+    private function makeDir($dir)
+    {
         // Create thumb path if do not exits
         if (!file_exists($dir) && !empty($dir)) {
             $done = @mkdir($dir, 0777, true);
@@ -152,7 +186,8 @@ class RealUploader
      *
      * @return bool =false if image is not supported, true if is ok
      */
-    private function createThumbGD($quality = 75) {
+    private function createThumbGD($quality = 75)
+    {
         $maxHeight  = isset($_REQUEST['ax-thumbHeight']) ? $_REQUEST['ax-thumbHeight'] : 0;
         $maxWidth   = isset($_REQUEST['ax-thumbWidth']) ? $_REQUEST['ax-thumbWidth'] : 0;
         $postfix    = isset($_REQUEST['ax-thumbPostfix']) ? $_REQUEST['ax-thumbPostfix'] : '_thumb';
@@ -222,7 +257,8 @@ class RealUploader
      * Check the maximum allowed file size
      * @return bool true if file size is in the current set limit
      */
-    private function checkSize() {
+    private function checkSize()
+    {
         if (!empty($maxFileSize) && $this->fileSize > $this->maxFileSize) {
             return false;
         }
@@ -234,8 +270,32 @@ class RealUploader
      * Check if file name is allowed and remove illegal windows chars
      * @return bool
      */
-    private function checkName() {
-        $windowsReserved = ['CON', 'PRN', 'AUX', 'NUL', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9', 'LPT1', 'LPT2', 'LPT3', 'LPT4', 'LPT5', 'LPT6', 'LPT7', 'LPT8', 'LPT9'];
+    private function checkName()
+    {
+        $windowsReserved = [
+            'CON',
+            'PRN',
+            'AUX',
+            'NUL',
+            'COM1',
+            'COM2',
+            'COM3',
+            'COM4',
+            'COM5',
+            'COM6',
+            'COM7',
+            'COM8',
+            'COM9',
+            'LPT1',
+            'LPT2',
+            'LPT3',
+            'LPT4',
+            'LPT5',
+            'LPT6',
+            'LPT7',
+            'LPT8',
+            'LPT9'
+        ];
         $badWinChars     = array_merge(array_map('chr', range(0, 31)), ["<", ">", ":", '"', "/", "\\", "|", "?", "*"]);
 
         $this->fileName = str_replace($badWinChars, '', $this->fileName);
@@ -250,7 +310,8 @@ class RealUploader
     /**
      * Check if a file exits or not and calculates a new name for not overriding other files
      */
-    private function checkFileExists() {
+    private function checkFileExists()
+    {
         if (!$this->overrideFile) {
             //set a random stop to allow the file system to read any new file on parallel upload
             usleep(rand(100, 900));
@@ -280,15 +341,26 @@ class RealUploader
      *
      * @param $filePath final uploaded file
      */
-    private function verifyMd5($filePath) {
+    private function verifyMd5($filePath)
+    {
         if ($this->checkMd5 && $this->clientMd5) {
             usleep(rand(100, 900));
             $serverMd5 = md5_file($filePath);
             if ($serverMd5 !== $this->clientMd5) {
-                $this->checkSumMsg = array('success' => false, 'message' => 'MD5 check sum failed. Client MD5 is different from server MD5.
-                                    File maybe have been corrupted during upload.', 'serverMd5' => $serverMd5, 'clientMd5' => $this->clientMd5);
+                $this->checkSumMsg = array(
+                    'success' => false,
+                    'message' => 'MD5 check sum failed. Client MD5 is different from server MD5.
+                                    File maybe have been corrupted during upload.',
+                    'serverMd5' => $serverMd5,
+                    'clientMd5' => $this->clientMd5
+                );
             } else {
-                $this->checkSumMsg = array('success' => true, 'message' => 'MD5 check correctly.', 'serverMd5' => $serverMd5, 'clientMd5' => $this->clientMd5);
+                $this->checkSumMsg = array(
+                    'success' => true,
+                    'message' => 'MD5 check correctly.',
+                    'serverMd5' => $serverMd5,
+                    'clientMd5' => $this->clientMd5
+                );
             }
         }
     }
@@ -297,7 +369,8 @@ class RealUploader
      * Simple check if the current file exists in the server
      * @return bool true if file exists, false otherwise
      */
-    public function doFileExists() {
+    public function doFileExists()
+    {
         $msg = file_exists($this->uploadPath . '/' . $this->fileName) ? 'yes' : 'no';
         $this->message(1, $msg);
     }
@@ -307,7 +380,8 @@ class RealUploader
      * @safe check 1: base name will not allow ../../ to scale in system a path
      * @return bool true if the file is deleted, false otherwise
      */
-    public function deleteFile() {
+    public function deleteFile()
+    {
         $msg = @unlink($this->uploadPath . '/' . $this->fileName) ? 'yes' : 'no';
         $this->message(1, $msg ? 'File deleted' : 'Cannot delete file');
     }
@@ -316,7 +390,8 @@ class RealUploader
      * Check if file type is allowed for upload
      * @return bool
      */
-    private function checkExt() {
+    private function checkExt()
+    {
         //get the file extension
         $extension = strtolower(pathinfo($this->fileName, PATHINFO_EXTENSION));
 
@@ -336,7 +411,8 @@ class RealUploader
      * Makes the check on the file, extension, size, name
      * @return bool true if file is correct, die() if there are errors
      */
-    private function checkFile() {
+    private function checkFile()
+    {
         //check uploads error
         if (isset($_FILES['ax_file_input'])) {
             if ($_FILES['ax_file_input']['error'] !== UPLOAD_ERR_OK) {
@@ -364,16 +440,18 @@ class RealUploader
     /**
      * Main Upload method. Handle file uploads and checks
      */
-    private function uploadAjax() {
+    private function uploadAjax()
+    {
         $currByte  = isset($_REQUEST['ax-start-byte']) ? $_REQUEST['ax-start-byte'] : 0;
         $fileChunk = file_get_contents($_FILES['ax_file_input']['tmp_name']);
-        $tempFile  = $this->tempPath . '/' . $this->tempFileName;
 
         //start of the file upload, first chunk
         if ($currByte == 0) {
             $tempFile           = tempnam($this->tempPath, 'axupload');
             $this->tempFileName = basename($tempFile);
         }
+
+        $tempFile  = $this->tempPath . '/' . $this->tempFileName;
 
         // some rare times (on very very fast connection), file_put_contents will be unable to write on the file,
         // so we try until it writes for a max of 5 times
@@ -409,7 +487,8 @@ class RealUploader
                 $extra_info = $this->finish();
                 $this->message(1, 'File uploaded', $extra_info);
             } else {
-                $this->message(-1, 'File move error: ' . $tempFile . ' to ' . $this->uploadPath . '/' . $this->fileName);
+                $this->message(-1,
+                    'File move error: ' . $tempFile . ' to ' . $this->uploadPath . '/' . $this->fileName);
             }
         }
     }
@@ -418,7 +497,8 @@ class RealUploader
      * Public function file upload, checks every chunk of the file during upload for avoiding
      * js hackers
      */
-    public function uploadFile() {
+    public function uploadFile()
+    {
         if ($this->checkFile()) {
             $this->uploadAjax();
         }
@@ -429,7 +509,8 @@ class RealUploader
      * Any post file action should be inserted here, DB, file move or others
      * @return string eventually errors return on user functions
      */
-    public function finish() {
+    public function finish()
+    {
         ob_start();
 
         //create a thumb if data is set
@@ -442,7 +523,8 @@ class RealUploader
     /**
      * Simple headers for JSON validation and others
      */
-    public function sendHeaders() {
+    public function sendHeaders()
+    {
         header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
         header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
         header('X-Content-Type-Options: nosniff');
@@ -465,9 +547,18 @@ class RealUploader
      * @param String $msg       error  message or success message
      * @param string $extraInfo more info returned by the user functions
      */
-    private function message($status, $msg, $extraInfo = '') {
+    private function message($status, $msg, $extraInfo = '')
+    {
         $this->sendHeaders();
-        echo json_encode(['name' => $this->fileName, 'temp_name' => $this->tempFileName, 'size' => $this->fileSize, 'status' => $status, 'info' => $msg, 'more' => $extraInfo, 'checkSum' => $this->checkSumMsg]);
+        echo json_encode([
+            'name' => $this->fileName,
+            'temp_name' => $this->tempFileName,
+            'size' => $this->fileSize,
+            'status' => $status,
+            'info' => $msg,
+            'more' => $extraInfo,
+            'checkSum' => $this->checkSumMsg
+        ]);
         die();
     }
 }
