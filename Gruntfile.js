@@ -142,7 +142,7 @@ module.exports = function (grunt) {
          * Copy created files to create the packages
          */
         copy: {
-            commercial: {
+            build: {
                 files: [
                     //License
                     {
@@ -175,27 +175,11 @@ module.exports = function (grunt) {
                         dest: 'build/prod/source/'
                     }
                 ]
-            },
-            zip: {
-                files: [
-                    {
-                        expand: false,
-                        src: ['build/v<%=version%>.zip'],
-                        dest: 'build/realuploader-commercial.zip',
-                        filter: 'isFile'
-                    },
-                    {
-                        expand: false,
-                        src: ['build/v<%=version%>.zip'],
-                        dest: 'build/realuploader-enterprise.zip',
-                        filter: 'isFile'
-                    }
-                ]
             }
         },
 
         compress: {
-            commercial: {
+            build: {
                 options: {
                     archive: 'build/v<%=version%>.zip'
                 },
@@ -204,18 +188,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        'ftp-deploy': {
-            upload: {
-                auth: {
-                    host: 'ftp.realuploader.com',
-                    port: 21,
-                    authKey: 'realuploader'
-                },
-                src: 'build/*.zip',
-                dest: 'web/download/'
-            }
-        },
-        shell: {},
         watch: {
             scripts: {
                 files: ['js/**/*.js'],
@@ -247,8 +219,8 @@ module.exports = function (grunt) {
         tasks.push('requirejs:dev');//compile js
         tasks.push('requirejs:min');//compile js min
         tasks.push('compass:dev');//compile sass to css (not needed in this case)
-        tasks.push('copy:commercial');
-        tasks.push('compress:commercial');
+        tasks.push('copy:build');
+        tasks.push('compress:build');
         grunt.task.run(tasks);
     });
 
