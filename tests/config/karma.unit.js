@@ -32,7 +32,7 @@ module.exports = function(config) {
         // - Safari (only Mac)
         // - PhantomJS
         // - IE (only Windows)
-        browsers: [ 'PhantomJS', 'Chrome'],
+        browsers: [ 'PhantomJS'],
         colors: true,
         singleRun: false,
         autoWatch: true,
