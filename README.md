@@ -40,7 +40,7 @@ modern browsers.
 -   Visual Image Resizer
 
 #### Prerequisites
-To run and test the upload locally you will need on of the following webservers stack:
+To run and test the upload locally you will need one of the following webservers stack:
 - PHP 5.6+ and Apache (or nginx), usually WAMP does the trick
 - ASPX and IIS
 - Java and Tomcat
